@@ -50,23 +50,23 @@
   <ul class="layui-nav ">
   	<div style="text-align: center;">
   <li class="layui-nav-item ">
-    <a href="index.html">首页</a>
+    <a href="/service/index.html">首页</a>
   </li>
    <li class="layui-nav-item ">
-    <a href="chatSel.html">交流聊天室<span class="layui-badge">hot</span></a>
+    <a href="/service/chatSel.html">交流聊天室<span class="layui-badge">hot</span></a>
   </li>
    <li class="layui-nav-item">
-    <a href="friends.html">好友</a>
+    <a onclick="returnInfo()">好友</a>
   </li>
  
   <li class="layui-nav-item">
-    <a href="tc.html">技术社区</a>
+    <a href="/service/tc.html">技术社区</a>
   </li>
   <li class="layui-nav-item">
-    <a href="publish.html">我发表的</a>
+    <a href="/service/publish.html">我发表的</a>
   </li>
    <li class="layui-nav-item ">
-    <a href="personCenter.html">个人中心<span class="layui-badge">9</span></a>
+    <a href="/service/personCenter.html">个人中心<span class="layui-badge">9</span></a>
   </li>
   </div>
   <li class="layui-nav-item layui-layout-right" lay-unselect="">
@@ -133,7 +133,13 @@
 			
 			
 		})
-		
-		
+
+    function returnInfo(){
+        layer.alert('该功能持续开发中---暂不开放!',{icon:5},function(){
+
+            window.location.href='/service/chatSel.html'
+        })
+
+    }
 	</script>
 </html>

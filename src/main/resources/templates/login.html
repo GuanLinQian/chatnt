@@ -20,15 +20,15 @@
         <div class="message">技术交流网v1.0登录</div>
       
         
-        <form method="post" class="layui-form" >
-            <input  v-model="user.U_LoginID" placeholder="用户名"  type="text" class="layui-input" >
+        <form method="post" class="layui-form"  name="loginForm">
+            <input  v-model="user.loginId" placeholder="用户名"  type="text" class="layui-input" >
             <hr class="hr15">
-            <input v-model="user.U_Password"   placeholder="密码"  type="password" class="layui-input">
+            <input v-model="user.password"   placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
             
-             <input   type="checkbox" class="layui-input"><span style="color: blue;">我同意以上规则和协议</span>
+             <input   type="checkbox" class="layui-input" name="ch"><span style="color: blue;">我同意以上规则和协议</span>
                <hr class="hr15">
-            <input value="登录"  style="width:100%;" type="button">
+            <input value="登录"  style="width:100%;" type="button" @click="login">
           
             
             <hr class="hr20" >
@@ -48,8 +48,8 @@
     	el:'#login',
     	data:{
     		user:{
-    			U_Password:'',
-    			U_LoginID:''
+    			password:'',
+    			loginId:''
     			
     		}
     		
@@ -85,7 +85,44 @@
     				
     			})
     			
-    		}
+    		},
+            login:function () {
+                if(this.user.loginId==''){
+                    layer.msg('请输入账号！')
+                    return;
+                }
+                if(this.user.password==''){
+                    layer.msg('请输入密码！')
+                    return;
+                }
+                if(!document.loginForm.ch.checked){
+                    layer.msg('请勾选服务条款！')
+                    return;
+                }
+                $.ajax({
+                    type:'post',
+                    data:login.user,
+                    url:'/user/login',
+                    success:function (res) {
+                        if(res.sign){
+                            layer.msg(res.msg,function () {
+                                window.location.href="/service/index.html";
+                            })
+
+
+                        }else {
+
+                            layer.msg(res.msg)
+                        }
+
+
+                    }
+
+
+
+
+                })
+            }
     		
     		
     		
