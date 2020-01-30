@@ -1,0 +1,14 @@
+ # ˝æ›ø‚≈‰÷√
+  spring:
+    datasource:
+      username: lq
+      password: 19990418
+      url: jdbc:mysql://47.94.107.225:3306/chatnt?serverTimezone=Asia/Shanghai
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+        max-lifetime: 1800000
+  #mybatisplus≈‰÷√
+  mybatis-plus:
+    mapper-locations: classpath*:mapper/*Mapper.xml
+    configuration:
+      map-underscore-to-camel-case: false

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		 <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>我的好友</title>
+		<script type="text/javascript" src="/js/vue.min.js" ></script>
+<link rel="stylesheet" href="/lib/layui/css/layui.css" />
+		<style>
+			#myFriends li:hover{
+				background: #DDDDDD;
+				border-radius: 5px;
+			}
+			#myFriends li{
+				
+				height: 30px;
+			}
+			#myFriends{
+				padding-left: 32px;padding-top: 2%;
+				
+			}
+			.friendsTitle{
+				color: red; font-weight: bold; font-size: 20px; text-align: center;
+			}
+			.ggchat2{
+				height: 10px;
+				
+			}
+			#ggchat2 div span{
+				font-weight: bold;
+				font-size: 18px;
+				
+			}
+			#ggchat2 div{
+				width: 580px;
+				height: 30px;
+				font-size: 15px;
+				border-radius: 5px;
+				padding-left: 20px
+			}
+			#ggchat2 div:hover{
+				background: #DDDDDD;
+			}
+		</style>
+	</head>
+	<body>
+
+  <ul class="layui-nav ">
+  	<div style="text-align: center;">
+  <li class="layui-nav-item ">
+    <a href="index.html">首页</a>
+  </li>
+   <li class="layui-nav-item ">
+    <a href="chatSel.html">交流聊天室<span class="layui-badge">hot</span></a>
+  </li>
+   <li class="layui-nav-item">
+    <a href="friends.html">好友</a>
+  </li>
+ 
+  <li class="layui-nav-item">
+    <a href="tc.html">技术社区</a>
+  </li>
+  <li class="layui-nav-item">
+    <a href="publish.html">我发表的</a>
+  </li>
+   <li class="layui-nav-item ">
+    <a href="personCenter.html">个人中心<span class="layui-badge">9</span></a>
+  </li>
+  </div>
+  <li class="layui-nav-item layui-layout-right" lay-unselect="">
+    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">林迁</a>
+    <dl class="layui-nav-child">
+     
+      <dd><a href="javascript:;">退出</a></dd>
+    </dl>
+  </li>
+</ul>
+<div id="friends"> 
+<div  style=" width: 600px; height: 580px; background:#FBFBFB;margin: auto; border-radius: 10px;" >
+	<div class="layui-collapse">
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">我的好友</h2>
+    <div class="layui-colla-content ">暂无</div>
+  </div>
+
+ <div class="layui-colla-item">
+    <h2 class="layui-colla-title">朋友</h2>
+    <div class="layui-colla-content" @click="selFriend(friend)" v-for="friend in friends">{{friend}}</div>
+  </div>
+	
+	</div>
+	
+</div>
+</div>
+<div style="text-align: center;">技术交流网 © 2020 http://www.chatnt.club 版权所有| 赣ICP备xxxx号</div>
+<script src="/lib/layui/layui.js"></script>
+	</body>
+	<script>
+	var layer;
+	var element;
+		var friends=new Vue({
+			el:'#friends',
+			data:{
+				friends:['小乌龟','黑狗','lol'],
+				zk:false
+			},
+			methods:{
+				selFriend:function(e){
+					alert("你选择了："+e)
+				}
+				
+				
+			},
+			mounted:function(){
+				layui.use(['layer','element'],function(){
+					
+							
+				layer=layui.layer;
+				element=layui.element;
+					
+					
+				})
+				
+			}
+			
+			
+		})
+		
+		
+	</script>
+</html>

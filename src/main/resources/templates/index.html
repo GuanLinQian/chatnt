@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		 <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>主页界面</title>
+	<script type="text/javascript" src="/js/vue.min.js" ></script>
+	<script type="text/javascript" src="/js/jquery.min.js" ></script>
+
+       <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+		<link rel="stylesheet" href="/lib/layui/css/layui.css" />
+		<link rel="stylesheet" href="/css/style.css" />
+		<style type="text/css">
+			.weather{
+				width: 280px;
+				height: 200px;
+				padding-left: 30px;
+				text-align: center;
+				background: #F0F0F0;
+				padding-top: 20px;
+				border-radius: 10px;
+				float: left;
+			}
+			#weather:hover{
+				background:#DDDDDD ;
+				border-color: #888888;
+				border-width: 1px;
+				border-style: solid;
+				width: 276px;
+				
+				
+			}
+			.weather li{
+				height: 30px;
+				font-weight: bold;
+				
+			}
+			#gg:hover{
+				
+				background:#DDDDDD ;
+				border-color: #888888;
+				border-width: 1px;
+				border-style: solid;
+				
+				width: 256px;
+				
+			}
+		 .gg{
+		 	   width: 260px;
+				height: 550px;
+				padding-left: 30px;
+				text-align: center;
+				background: #F0F0F0;
+				padding-top: 20px;
+				border-radius: 10px;
+				float: right;
+		 	
+		 }
+		 .gg li{
+		 	height: 50px;
+		 	
+		 	
+		 }
+		 .qd{
+		 		width: 280px;
+				height: 330px;
+				padding-left: 30px;
+				text-align: center;
+				background: #F0F0F0;
+				padding-top: 20px;
+				border-radius: 10px;
+				float: left;
+		 	
+		 }
+		 #qd:hover{
+		 	background:#DDDDDD ;
+				border-color: #888888;
+				border-width: 1px;
+				border-style: solid;
+				
+				width: 276px;
+		 }
+		</style>
+	</head>
+	<body>
+
+  <ul class="layui-nav ">
+  	<div style="text-align: center;">
+  <li class="layui-nav-item ">
+    <a href="index.html">首页</a>
+  </li>
+   <li class="layui-nav-item ">
+    <a href="chatSel.html">交流聊天室<span class="layui-badge">hot</span></a>
+  </li>
+  
+  <li class="layui-nav-item">
+    <a onclick="returnIndex()" >好友</a>
+  </li>
+  <li class="layui-nav-item">
+    <a href="tc.html">技术社区</a>
+  </li>
+  <li class="layui-nav-item">
+    <a href="publish.html">我发表的</a>
+  </li>
+ 
+   <li class="layui-nav-item ">
+    <a href="personCenter.html">个人中心<span class="layui-badge">9</span></a>
+  </li>
+  </div>
+  <li class="layui-nav-item layui-layout-right" lay-unselect="">
+  	
+    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">林迁</a>
+    <dl class="layui-nav-child">
+     
+      <dd><a href="javascript:;">退出</a></dd>
+    </dl>
+  </li>
+</ul>
+
+<div id="index"> 
+	
+	<div  style=" width: 600px; height: 580px; background:#FBFBFB;margin: auto; border-radius: 10px;" >
+	
+	<div class="weather" id="weather"> 
+    
+  <li style="font-weight: bold; font-size: 20px; color: red;">  当前天气情况: </li> 
+   
+    	 <li>  城市:  {{cityWeather.city}}</li>
+         <li>  风速: {{cityWeather.win_meter}} </li>
+         <li>    湿度: {{cityWeather.humidity}}</li>
+   
+          <li>  温度: {{cityWeather.tem}}摄氏度</li>
+     
+          <li>   日期:  {{cityWeather.date}}</li>
+      
+     
+    
+      </div>
+      
+      <div class="gg" id="gg">
+      	<ul>
+      		
+      		<li>站长推荐</li>
+      		<li>站长推荐</li>
+      		<li>站长推荐</li>
+      		<li>站长推荐</li>
+      		<li>站长推荐</li>
+      		<li>站长推荐</li>
+      		<li>站长推荐</li>
+      		<li>站长推荐</li>
+      		<li>站长推荐</li>
+      	</ul>
+      	
+      	
+      	
+      </div>
+      <div id="qd" class="qd">
+      	<li style="color: red; font-weight: bold; font-size: 20px;">你2020年已累计签到:0天</li>
+      <br />
+      <button class="layui-btn" @click="qd">点击签到</button>
+      </div>
+      
+	<div>
+		
+		
+		
+	</div>
+	
+	
+
+	
+	
+</div>
+
+<div style="text-align: center;">技术交流网 © 2020 http://www.chatnt.club 版权所有| 赣ICP备xxxx号</div>
+<script src="/lib/layui/layui.all.js"></script>
+
+</script>
+<script>
+	var layer=layui.layer;
+	var index =new Vue({
+		data:{
+			cityWeather:{}
+			
+		},
+		el:'#index',
+		mounted:function(){
+	  //  console.log(returnCitySN)
+		$.ajax({
+
+        type: 'GET',
+        url: 'https://www.tianqiapi.com/api/?appid=92369954&appsecret=cntLvW6W',
+        data: 'version=v6&ip='+returnCitySN.cip,
+        dataType: 'JSON',
+        error: function () {
+           layui.layer.alert('网络错误');
+        },
+        success: function (res) {
+        //	console.info(res)
+        index.cityWeather=res;
+       // console.info(index.cityWeather)
+           
+        }
+    });
+			
+			
+		},
+		methods:{
+			qd:function(){
+				layui.layer.alert("你已成功签到！",{icon:6})
+			}
+			
+		}
+		
+		
+		
+	})
+	
+	
+	function returnIndex(){
+		layer.alert('该功能持续开发中---暂不开放!',{icon:5},function(){
+			
+		window.location.href='index.html'	
+		})
+		
+	}
+</script>
+	</body>
+</html>

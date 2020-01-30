@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<meta charset="utf-8" />
+		 <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>技术文章添加</title>
+		<script type="text/javascript" src="/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="/js/vue.min.js" ></script>
+		<link rel="stylesheet" href="/lib/layui/css/layui.css" />
+	</head>
+	<body>
+<div id="tcAdd"> 
+	<form class="layui-form"> 
+  <div class="layui-form-item">
+    <label class="layui-form-label">文章标题</label>
+    <div class="layui-input-block">
+  <input type="text" placeholder="请输入文章标题" autocomplete="off" class="layui-input" v-model="form.title">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">文章内容</label>
+    <div class="layui-input-block">
+   <textarea id="edit" style="display: none;"  ></textarea>
+    </div> 
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">代码区(可选)</label>
+    <div class="layui-input-block">
+   <textarea  v-model="form.code"  placeholder="这里请贴代码"  style="width: 560px;height: 200px;"></textarea>
+    </div> 
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="button"  class="layui-btn"  @click="add">立即发表</button>
+      <button type="reset"   class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+
+</form>
+			
+	
+		</div>
+	</body>
+	<script src="/lib/layui/layui.js"></script>
+	<script>
+		var layedit;
+		var layer;
+		 var index;
+		var tcAdd=new Vue({
+			el:'#tcAdd',
+			data:{
+				form:{
+					title:'',
+					content:'',
+					code:''
+							}
+				
+			},
+			mounted:function(){
+				layui.use(['layedit','layer'],function(){
+					layedit = layui.layedit;
+					layer=layui.layer;
+					
+					
+                    index=  layedit.build('edit',{
+						uploadImage: {
+                              url: '' //接口url
+                             ,type: '' //默认post
+                           }
+                       
+						
+					}); //建立编辑器
+					//开启同步到textarea
+					
+					
+					
+				})
+			
+				
+			},
+			methods:{
+				add:function(){
+					var content=layedit.getContent(index);
+					if(tcAdd.form.title==''){
+						
+						layer.msg('请输入文章标题！')
+						return ;
+					}
+					
+					if(content==''){
+		               	layer.msg('请输入内容！')
+						return ;
+					}
+					tcAdd.form.content=content;
+					console.info(tcAdd.form)
+					
+				}
+				
+				
+			}
+			
+			
+			
+		})
+		
+		
+	</script>
+</html>

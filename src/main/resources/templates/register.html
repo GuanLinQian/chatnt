@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		 <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>注册</title>
+	<script type="text/javascript" src="/js/vue.min.js" ></script>
+	<script type="text/javascript" src="/js/jquery.min.js" ></script>
+	<link rel="stylesheet" href="/lib/layui/css/layui.css" />
+	</head>
+	<body>
+		
+		<div id="register">
+			   <div class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+  
+   <div class="layui-form-item">
+    <label class="layui-form-label">昵称：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_NickName" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">个性签名：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_SignaTure" class="layui-input">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">性别：</label>
+    <div class="layui-input-block">
+      <input type="radio"  name="sex" value="男" v-model="userInfo.U_Sex" title="男">
+      <input type="radio"  name="sex" value="女" v-model="userInfo.U_Sex" title="女" >
+    </div>
+  </div>
+ <div class="layui-form-item">
+    <label class="layui-form-label">生日：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_Birthday" class="layui-input">
+    </div>
+  </div>
+ <div class="layui-form-item">
+    <label class="layui-form-label">电话：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_Telephone" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">真实姓名：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_Name" class="layui-input">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">邮箱：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_Email" class="layui-input">
+    </div>
+  </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label">简介：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_Intro" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">生肖：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_ShengXiao" class="layui-input">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">年龄：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_Age" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">星座：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_Constellation" class="layui-input">
+    </div>
+  </div>
+   
+    <div class="layui-form-item">
+    <label class="layui-form-label">职业：</label>
+    <div class="layui-input-block">
+      <input type="text"  v-model="userInfo.U_Vocation" class="layui-input">
+    </div>
+  </div>
+ 
+ <div class="layui-form-item">
+    <label class="layui-form-label">国家：</label>
+    <div class="layui-input-block">
+     <select v-model="userInfo.U_NationID"  lay-search>
+    <option value="请选择" disabled>请选择</option>
+    <option :value="nation.id"  v-for="nation in nations">{{nation.nationName}}</option>
+   
+  </select>   
+    </div>
+  </div>
+ 
+  <div class="layui-form-item">
+    <label class="layui-form-label">省份：</label>
+    <div class="layui-input-block">
+     <select v-model="userInfo.U_ProvinceID"  lay-search>
+    <option value="请选择" disabled>请选择</option>
+    <option :value="province.id"  v-for="province in provinces">{{province.provinceName}}</option>
+   
+  </select>   
+    </div>
+  </div>
+  
+    <div class="layui-form-item">
+    <label class="layui-form-label">城市：</label>
+    <div class="layui-input-block">
+     <select v-model="userInfo.U_CityID"  lay-search>
+    <option value="请选择" disabled>请选择</option>
+    <option :value="city.id"  v-for="city in citys">{{city.cityName}}</option>
+   
+  </select>   
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" @click="addUser">立即注册</button>
+     
+    </div>
+  </div>
+  
+</div>
+			
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="/lib/layui/layui.js" ></script>
+	<script>
+		var register=new Vue({
+			el:'#register',
+			data:{
+				userInfo:{
+					U_LoginID:'',
+					U_PassWord:'',
+					U_NickName:'',
+					U_SignaTure:'',
+					U_Sex:'女',
+					U_HeadPortrait:'',
+					U_Birthday:'',
+					U_Telephone:'',
+					U_Name:'',
+					U_Email:'',
+					U_Intro:'',
+					U_ShengXiao:'',
+					U_Age:'',
+					U_Constellation:'',
+					U_Vocation:'',
+					U_NationID:1,
+					U_ProvinceID:1,
+					U_CityID:1
+				},
+				nations:[
+				{id:1,nationName:'中国'},
+				{id:2,nationName:'美国'},
+				{id:3,nationName:'法国'},
+				{id:4,nationName:'德国'},
+				],
+				provinces:[
+				{id:1,provinceName:'江西省'},
+				{id:2,provinceName:'湖北省'},
+				{id:3,provinceName:'湖南省'},
+				{id:4,provinceName:'广东省'},
+				],
+				citys:[
+				{id:1,cityName:'南昌市'},
+				{id:2,cityName:'武汉市'},
+				{id:3,cityName:'宜春市'},
+				{id:4,cityName:'贵阳市'},
+				]
+				
+				
+				
+			},
+			mounted:function(){
+				layui.use('form',function(){
+					var form=layui.form;
+					
+					
+				})
+				
+			},
+			methods:{
+				addUser:function(){
+					
+					alert(0)
+					
+					
+				}
+			}
+			
+			
+		})
+		
+		
+		
+		
+	</script>
+</html>

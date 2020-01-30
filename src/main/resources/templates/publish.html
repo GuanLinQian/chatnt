@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		 <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>我发表的</title>
+	<script type="text/javascript" src="/js/vue.min.js" ></script>
+	<script type="text/javascript" src="/js/jquery.min.js" ></script>
+		<link rel="stylesheet" href="/lib/layui/css/layui.css" />
+		<link rel="stylesheet" href="/css/style.css" />
+	
+		<style type="text/css">
+		
+			#plTop{
+				width:  600px;
+				height: 30px;
+				background: #EAEAEA;
+				border-radius: 10px;
+				
+				
+			}
+		   #plTop li:hover{
+			
+				background: #CCCCCC;
+				
+				
+			}
+			#plTop li{
+				padding-top: 10px;
+				border-radius: 10px;
+				color: black;
+				
+			}
+			#plList{
+				margin-top: 10px;
+				width:  600px;
+				height: 650px;
+				background: #EAEAEA;
+				border-radius: 10px;	
+				
+			}  
+			  #plList li:hover{
+			
+				background: #CCCCCC;
+				
+				
+			}
+			  #plTop li span:hover{
+			 padding-left: 10px;
+				color: red;
+				
+				
+			}
+			  #plTop li span{
+			 padding-left: 10px;
+				
+				
+				
+			}
+		</style>
+	</head>
+	<body>
+
+  <ul class="layui-nav ">
+  	<div style="text-align: center;">
+  <li class="layui-nav-item ">
+    <a href="index.html">首页</a>
+  </li>
+   <li class="layui-nav-item ">
+    <a href="chatSel.html">交流聊天室<span class="layui-badge">hot</span></a>
+  </li>
+  
+  <li class="layui-nav-item">
+    <a href="friends.html">好友</a>
+  </li>
+  <li class="layui-nav-item">
+    <a href="tc.html">技术社区</a>
+  </li>
+  <li class="layui-nav-item">
+    <a href="publish.html">我发表的</a>
+  </li>
+ 
+   <li class="layui-nav-item ">
+    <a href="personCenter.html">个人中心<span class="layui-badge">9</span></a>
+  </li>
+  </div>
+  <li class="layui-nav-item layui-layout-right" lay-unselect="">
+  	
+    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">林迁</a>
+    <dl class="layui-nav-child">
+     
+      <dd><a href="javascript:;">退出</a></dd>
+    </dl>
+  </li>
+</ul>
+
+<div id="pl"> 
+	
+	<div  style=" width: 600px; height: 730px; background:#FBFBFB;margin: auto; border-radius: 10px;" >
+	<div id="plTop">
+	<ul>
+	<li><span @click="add"><i class="layui-icon layui-icon-add-1"></i></span></li>
+	</ul>
+		
+	</div>
+	
+	<div id="plList"> 
+		<ul>
+		
+		<li v-for="plTopAcr in plList">
+			<span><i style="color: #666666; font-size: 10px;" class="layui-icon layui-icon-note"></i></span>
+			<div style="height: 20px;"></div>
+			<div style="width: 600px;height: 47px;">
+				<div style="width: 50px;height: 47px; float: left;"><img :src="plTopAcr.img" style="width: 40px;height: 40px;padding-left: 3px;" class="layui-nav-img"></div>
+			<div style="width: 550px;height: 27px; float: right; "><span style="font-size: 12px; border-style: solid; border-width: 1px; border-color: green; width: 50px; color: green;"> 主题</span> &nbsp; &nbsp; &nbsp;<a>{{plTopAcr.title}}</a></div>
+			<div style="width: 550px;height: 20px;float: right ;color: #303C5D;font-size: 13px;  ">{{plTopAcr.username}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  {{plTopAcr.time.substr(0,10)}}
+			<div style="float: right; padding-right: 10px;">
+			<i class="layui-icon layui-icon-reply-fill"></i>	11
+			<span @click="del"><i class="layui-icon layui-icon-delete" style=""></i></span>
+			</div>
+			
+			</div>
+			</div>
+			
+		</li>
+	</ul>
+	
+	
+	
+	
+	</div>
+<div id="plPage">
+	
+</div>
+		
+	</div>
+	
+	
+	
+</div>
+
+<div style="text-align: center;">技术交流网 © 2020 http://www.chatnt.club 版权所有| 赣ICP备xxxx号</div>
+<script src="/lib/layui/layui.js"></script>
+
+</script>
+<script>
+	var layer;
+	var laypage;
+	var pl =new Vue({
+		data:{
+		plList:[]
+			},
+		el:'#pl',
+		mounted:function(){
+			layui.use(['layer','laypage','element'],function(){
+				
+				layer =layui.layer;
+				laypage=layui.laypage;
+				laypage.render({
+                     elem: 'plPage' //注意，这里的 test1 是 ID，不用加 # 号
+                    ,count: 50 //数据总数，从服务端得到
+                    ,limit:5,
+                     limits:[10, 20, 30, 40, 50],
+                     layout:['count','prev', 'page', 'next','limit','refresh'],
+                     jump: function(obj, first){
+                         //obj包含了当前分页的所有参数，比如：
+                         console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                          console.log(obj.limit); //得到每页显示的条数
+                     var list=[
+		    {title:'网站采用技术',img:'//t.cn/RCzsdCq',username:"林迁",time:new Date().toLocaleString()},
+		    {title:'js绑定参数',img:'//t.cn/RCzsdCq',username:"小李",time:new Date().toLocaleString()},
+			{title:'网站采用技术',img:'//t.cn/RCzsdCq',username:"林迁",time:new Date().toLocaleString()},
+		    {title:'js绑定参数',img:'//t.cn/RCzsdCq',username:"小李",time:new Date().toLocaleString()},
+			{title:'网站采用技术',img:'//t.cn/RCzsdCq',username:"林迁",time:new Date().toLocaleString()},
+		    {title:'js绑定参数',img:'//t.cn/RCzsdCq',username:"小李",time:new Date().toLocaleString()}
+			];
+                     pl.plList=list;
+                                //首次不执行
+                        if(!first){
+                            //do something
+     
+                        }
+                               }
+                      });
+})
+				
+			
+	
+	
+			
+		},
+		methods:{
+		add:function(){
+			layer.open({
+						type:2,
+						content:'tcAdd.html',
+						area:['700px','550px'],
+						title:'技术文章添加',
+						maxmin:true
+						
+						
+					})
+			
+		},
+		del:function(){
+			layer.confirm('警告，你正在删除你的相关文章,是否确定?', function(index){
+  //do something
+                 layer.msg('已成功删除一篇文章')
+                 window.location.reload();
+             layer.close(index);
+        });   
+		}
+	
+			
+		}
+		
+		
+		
+	})
+		
+</script>
+	</body>
+</html>
