@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface MailService extends IService<Mail> {
 
+   void  simpleMail(Mail mail);
+   void  htmlMail(Mail mail);
 }

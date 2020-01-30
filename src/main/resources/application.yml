@@ -7,8 +7,17 @@
       driver-class-name: com.mysql.cj.jdbc.Driver
       hikari:
         max-lifetime: 1800000
-  #mybatisplus≈‰÷√
+        #” º˛≈‰÷√
+    mail:
+      protocol: smtp
+      default-encoding: UTF-8
+      host: smtp.163.com
+      password: q19990418
+      test-connection: true
+      username: chatnt@163.com
+ #mybatisplus≈‰÷√
   mybatis-plus:
     mapper-locations: classpath*:mapper/*Mapper.xml
     configuration:
       map-underscore-to-camel-case: false
+#” º˛≈‰÷√

@@ -3,6 +3,7 @@ package club.chatnt.controller;
 
 import club.chatnt.entity.User;
 import club.chatnt.returnjson.UserMapJson;
+import club.chatnt.service.MailService;
 import club.chatnt.service.UserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,10 @@ public class UserController {
 
 @Autowired
     HttpServletRequest request;
+
+
+@Autowired
+    MailService mailService;
 @RequestMapping("login")
 
     public Map login(User userParam){
@@ -38,6 +43,14 @@ public class UserController {
 
     return UserMapJson.returnLoginJson(user,userParam,request.getSession());
 
+
+}
+
+@RequestMapping("retrievePassword")
+    public Map retrievePassword(String email){
+User user=userService.getOne(new QueryWrapper<User>().eq("email",email));
+
+ return  UserMapJson.returnRetrievePasswordJson(user,userService,mailService);
 
 }
 }

@@ -1,5 +1,6 @@
 package club.chatnt.util;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.util.DigestUtils;
 
 /**
@@ -8,7 +9,14 @@ import org.springframework.util.DigestUtils;
  **/
 public class TestDemo {
     public static void main(String[] args) {
+
+
         System.out.println(DigestUtils.md5DigestAsHex("000000".getBytes()));
+        System.out.println(RandomStringUtils.random(9,true,true));
+
+
+
+
     }
 
 }
