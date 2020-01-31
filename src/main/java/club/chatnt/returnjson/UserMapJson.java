@@ -19,7 +19,7 @@ import java.util.Map;
  **/
 public class UserMapJson {
     private static Map map;
-
+//登录
     public static Map returnLoginJson(User user, User userParam, HttpSession session){
         map=new HashMap<String,Object>();
         if(user==null){
@@ -44,7 +44,7 @@ public class UserMapJson {
 return map;
     }
 
-
+//找回密码
     public static   Map  returnRetrievePasswordJson(User user, UserService userService, MailService mailService){
         map=new HashMap<String,Object>();
         if(user==null){
@@ -77,6 +77,20 @@ return map;
 
    return  map;
 
+    }
+    public  static Map returnRegisterJson(boolean  f){
+        map=new HashMap<String,Object>();
+
+        if(f){
+
+            map.put("msg","注册成功！");
+            map.put("sign",true);
+
+        }else {
+            map.put("msg","注册失败！");
+            map.put("sign",false);
+        }
+return  map;
     }
 
 }

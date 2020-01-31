@@ -9,199 +9,314 @@
 	<script type="text/javascript" src="/js/vue.min.js" ></script>
 	<script type="text/javascript" src="/js/jquery.min.js" ></script>
 	<link rel="stylesheet" href="/lib/layui/css/layui.css" />
-	</head>
+	<style>
+
+#register select{
+    height: 30px;
+    text-align: center;
+}
+
+    </style>
+    </head>
 	<body>
-		
-		<div id="register">
-			   <div class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
-  
-   <div class="layui-form-item">
-    <label class="layui-form-label">昵称：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_NickName" class="layui-input">
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">个性签名：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_SignaTure" class="layui-input">
-    </div>
-  </div>
-   <div class="layui-form-item">
-    <label class="layui-form-label">性别：</label>
-    <div class="layui-input-block">
-      <input type="radio"  name="sex" value="男" v-model="userInfo.U_Sex" title="男">
-      <input type="radio"  name="sex" value="女" v-model="userInfo.U_Sex" title="女" >
-    </div>
-  </div>
- <div class="layui-form-item">
-    <label class="layui-form-label">生日：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Birthday" class="layui-input">
-    </div>
-  </div>
- <div class="layui-form-item">
-    <label class="layui-form-label">电话：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Telephone" class="layui-input">
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">真实姓名：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Name" class="layui-input">
-    </div>
-  </div>
-   <div class="layui-form-item">
-    <label class="layui-form-label">邮箱：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Email" class="layui-input">
-    </div>
-  </div>
-    <div class="layui-form-item">
-    <label class="layui-form-label">简介：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Intro" class="layui-input">
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">生肖：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_ShengXiao" class="layui-input">
-    </div>
-  </div>
-   <div class="layui-form-item">
-    <label class="layui-form-label">年龄：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Age" class="layui-input">
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <label class="layui-form-label">星座：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Constellation" class="layui-input">
-    </div>
-  </div>
-   
-    <div class="layui-form-item">
-    <label class="layui-form-label">职业：</label>
-    <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Vocation" class="layui-input">
-    </div>
-  </div>
- 
- <div class="layui-form-item">
-    <label class="layui-form-label">国家：</label>
-    <div class="layui-input-block">
-     <select v-model="userInfo.U_NationID"  lay-search>
+
+    <div id="register">
+			  <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+<div >
+
+    <label class="layui-form-label">昵称：</label> <input type="text"  v-model="userInfo.nickName"  class="layui-input" style="width: 300px"><br>
+    <label class="layui-form-label"> 密码：</label><input type="password"  v-model="userInfo.password"  class="layui-input" style="width: 300px"><br>
+    <label class="layui-form-label">  个性签名：</label><input type="text"  v-model="userInfo.signaTure" class="layui-input" style="width: 300px" placeholder="可选"><br>
+
+    <label class="layui-form-label">  生日：</label><input type="text"  v-model="userInfo.birthday" class="layui-input" style="width: 300px" id="birthday"> <br/>
+    <label class="layui-form-label"> 电话：</label><input type="text"  v-model="userInfo.telephone" class="layui-input" style="width: 300px"><br/>
+    <label class="layui-form-label">   真实姓名：</label><input type="text"  v-model="userInfo.name" class="layui-input" style="width: 300px"><br/>
+    <label class="layui-form-label">   邮箱：</label><input type="text"  v-model="userInfo.email" class="layui-input" style="width: 300px"><br/>
+    <label class="layui-form-label">    简介：</label><input type="text"  v-model="userInfo.intro" class="layui-input" style="width: 300px" placeholder="可选"><br/>
+    <label class="layui-form-label">   年龄：</label><input type="text"  v-model="userInfo.age" class="layui-input" style="width: 300px"><br/>
+    <label class="layui-form-label"> 职业：</label><input type="text"  v-model="userInfo.vocation" class="layui-input" style="width: 300px"><br/>
+
+    <div style="margin-left: 52px">
+        <div>生肖：<select v-model="userInfo.shengXiao"  >
+
+            <option value="请选择" disabled>请选择</option>
+             <option value="鼠">鼠</option>
+            <option value="牛">牛</option>
+            <option value="虎">虎</option>
+            <option value="兔">兔</option>
+            <option value="龙">龙</option>
+            <option value="蛇">蛇</option>
+            <option value="马">马</option>
+            <option value="羊">羊</option>
+            <option value="猴">猴</option>
+            <option value="鸡">鸡</option>
+            <option value="狗">狗</option>
+            <option value="猪">猪</option>
+        </select>
+       </div><br>
+
+
+
+
+        <div>星座：<select v-model="userInfo.constellation"  >
+            <option value="请选择" disabled>请选择(按公历)</option>
+            <option value="白羊座">白羊座(3月21日～4月19日)</option>
+            <option value="金牛座">金牛座(4月20日～5月20日)</option>
+            <option value="双子座">双子座(5月21日～6月21日)</option>
+            <option value="巨蟹座">巨蟹座(6月22日～7月22日)</option>
+            <option value="狮子座">狮子座(7月23日～8月22日)</option>
+            <option value="处女座">处女座(8月23日～9月22日)</option>
+            <option value="天秤座">天秤座(9月23日～10月23日)</option>
+            <option value="天蝎座">天蝎座(10月24日～11月22日)</option>
+            <option value="射手座">射手座(11月23日～12月21日)</option>
+            <option value="摩羯座">摩羯座(12月22日～1月19日)</option>
+            <option value="水瓶座">水瓶座(1月20日～2月18日)</option>
+            <option value="双鱼座">双鱼座(2月19日～3月20日)</option>
+
+        </select> </div><br>
+
+
+
+
+
+
+        <div>国家：<select v-model="userInfo.nationId"   @change="nChange($event.target.value)">
     <option value="请选择" disabled>请选择</option>
-    <option :value="nation.id"  v-for="nation in nations">{{nation.nationName}}</option>
-   
-  </select>   
-    </div>
-  </div>
- 
-  <div class="layui-form-item">
-    <label class="layui-form-label">省份：</label>
-    <div class="layui-input-block">
-     <select v-model="userInfo.U_ProvinceID"  lay-search>
+    <option :value="nation.id"  v-for="nation in nations">{{nation.name}}</option>
+  </select>   </div><br>
+
+
+
+
+        <div>省份：<select v-model="userInfo.provinceId"   @change="cChange($event.target.value)">
     <option value="请选择" disabled>请选择</option>
-    <option :value="province.id"  v-for="province in provinces">{{province.provinceName}}</option>
+    <option :value="province.id"  v-for="province in provinces">{{province.name}}</option>
    
-  </select>   
-    </div>
-  </div>
-  
-    <div class="layui-form-item">
-    <label class="layui-form-label">城市：</label>
-    <div class="layui-input-block">
-     <select v-model="userInfo.U_CityID"  lay-search>
+  </select> </div>
+        <br>
+
+
+
+
+
+        <div>城市：<select v-model="userInfo.cityId" >
     <option value="请选择" disabled>请选择</option>
-    <option :value="city.id"  v-for="city in citys">{{city.cityName}}</option>
+    <option :value="city.id"  v-for="city in citys">{{city.name}}</option>
    
-  </select>   
-    </div>
-  </div>
-  <div class="layui-form-item">
-    <div class="layui-input-block">
-      <button class="layui-btn" @click="addUser">立即注册</button>
-     
-    </div>
-  </div>
-  
+  </select> </div>   <br>
+
+<div style="margin-left: 0px">
+
+    性别： <input type="radio"  name="sex" value="男" v-model="userInfo.sex" title="男" >男
+        <input type="radio"  name="sex" value="女" v-model="userInfo.sex" title="女" >女
 </div>
+        <br>
+        <button class="layui-btn" @click="addUser">立即注册</button>
+
+
+</div>
+</div>
+
 			
 			
 		</div>
 	</body>
 	<script type="text/javascript" src="/lib/layui/layui.js" ></script>
 	<script>
+
+        var layer =parent.layer;
+         var index=layer.getFrameIndex(window.name);
 		var register=new Vue({
 			el:'#register',
 			data:{
 				userInfo:{
-					U_LoginID:'',
-					U_PassWord:'',
-					U_NickName:'',
-					U_SignaTure:'',
-					U_Sex:'女',
-					U_HeadPortrait:'',
-					U_Birthday:'',
-					U_Telephone:'',
-					U_Name:'',
-					U_Email:'',
-					U_Intro:'',
-					U_ShengXiao:'',
-					U_Age:'',
-					U_Constellation:'',
-					U_Vocation:'',
-					U_NationID:1,
-					U_ProvinceID:1,
-					U_CityID:1
+					loginId:'',
+					password:'',
+					nickName:'',
+					signaTure:'',
+					sex:'女',
+					headPortrait:'',
+					birthday:'',
+					telephone:'',
+					name:'',
+					email:'',
+					intro:'',
+					shengXiao:'',
+					age:'',
+					constellation:'',
+					vocation:'',
+					nationId:'',
+					provinceId:'',
+					cityId:''
 				},
-				nations:[
-				{id:1,nationName:'中国'},
-				{id:2,nationName:'美国'},
-				{id:3,nationName:'法国'},
-				{id:4,nationName:'德国'},
-				],
-				provinces:[
-				{id:1,provinceName:'江西省'},
-				{id:2,provinceName:'湖北省'},
-				{id:3,provinceName:'湖南省'},
-				{id:4,provinceName:'广东省'},
-				],
-				citys:[
-				{id:1,cityName:'南昌市'},
-				{id:2,cityName:'武汉市'},
-				{id:3,cityName:'宜春市'},
-				{id:4,cityName:'贵阳市'},
-				]
-				
-				
-				
+				nations:[],
+				provinces:[],
+				citys:[]
+
+
+
 			},
+
 			mounted:function(){
-				layui.use('form',function(){
-					var form=layui.form;
-					
-					
-				})
-				
-			},
+			    layui.use('laydate',function () {
+                    var laydate=layui.laydate;
+                    laydate.render({
+                        elem:'#birthday',
+                        type:'date',
+                        done:function(value, date, endDate){
+                            register.userInfo.birthday=value;
+                            console.log(value); //得到日期生成的值，如：2017-08-18
+                            console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                            console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                        }
+                    })
+                })
+                $.ajax({
+                    type:'post',
+                    url:'/nation/initNations',
+                    success:function (res) {
+
+                        register.nations=res.nations;
+
+
+
+                    },
+                    error:function () {
+                        layer.alert('服务器异常')
+                    }
+
+
+
+
+
+                })
+
+
+
+
+
+
+
+
+            },
 			methods:{
 				addUser:function(){
-					
-					alert(0)
-					
-					
-				}
+                    var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                  if(this.userInfo.nickName==''){
+                      layer.msg('请输入昵称！')
+                      return;
+                  }
+                  if(this.userInfo.password.length<6||this.userInfo.password.length>12){
+                      layer.msg('请输入6位至12位的密码！')
+                      return;
+                  }
+                  if(this.userInfo.birthday==''){
+                      layer.msg('请选择你的生日！')
+                      return;
+                  }
+                  if(this.userInfo.telephone.length!=11){
+                      layer.msg('请输入11位的电话号码！')
+                      return;
+                  }
+                  if(this.userInfo.name==''){
+                      layer.msg('请输入你的姓名！')
+                      return;
+                  }
+                  if(!reg.test(this.userInfo.email)){
+                      layer.msg('请输入正确的邮箱格式！')
+                      return;
+                  }
+                  if(this.userInfo.age<0||this.userInfo.age>100||this.userInfo.age==''){
+                      layer.msg('请输入正确的年龄！')
+                      return;
+                  }
+                  if(this.userInfo.vocation==''){
+                      layer.msg('请输入你的职业！')
+                      return;
+                  }
+                  if(this.userInfo.shengXiao==''){
+                      layer.msg('请选择你的生肖！')
+                      return;
+                  }
+                    if(this.userInfo.constellation==''){
+                        layer.msg('请选择你的星座！')
+                        return;
+                    }
+                    if(this.userInfo.nationId==''){
+                        layer.msg('请选择你所在的国家！')
+                        return;
+                    }
+                    if(this.userInfo.provinceId==''){
+                        layer.msg('请选择你所在的省！')
+                        return;
+                    }
+                    if(this.userInfo.cityId==''){
+                        layer.msg('请选择你所在的市！')
+                        return;
+                    }
+
+                    $.ajax({
+                        type:'post',
+                        data:register.userInfo,
+                        url:'/user/register',
+                        success:function (res) {
+                            if(res.sign){
+                                layer.msg(res.msg,function () {
+                                  layer.close(index)
+                                })
+                            }else {
+                                layer.msg(res.msg,function () {
+                                    layer.close(index)
+                                })
+
+                            }
+                        }
+
+
+                    })
+
+				},
+               nChange:function (id) {
+				    console.info(id)
+				    $.ajax({
+                        type:'post',
+                        data:{id:id},
+                        url:'/province/initProvinces',
+                        success:function (res) {
+                            register.provinces=res.provinces;
+
+
+                        }
+
+
+                    })
+
+
+               },
+                cChange:function (id) {
+                    console.info(id)
+                    $.ajax({
+                        type:'post',
+                        data:{id:id},
+                        url:'/city/initCitys',
+                        success:function (res) {
+                            register.citys=res.citys;
+
+
+                        }
+
+
+                    })
+
+
+                }
 			}
-			
-			
+
+
+
 		})
-		
-		
+
+
 		
 		
 	</script>

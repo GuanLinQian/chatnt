@@ -44,6 +44,7 @@
 <script>
 	var form;
 	var layer;
+	var laydate;
     var login=new Vue({
     	el:'#login',
     	data:{
@@ -55,9 +56,10 @@
     		
     	},
     	mounted:function(){
-    		  layui.use(['form','layer'], function(){
+    		  layui.use(['form','layer','laydate'], function(){
                 form = layui.form;
                 layer=layui.layer;
+                laydate=layui.laydate;
               });
            
       

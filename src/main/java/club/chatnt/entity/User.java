@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -56,7 +57,7 @@ public class User implements Serializable {
 
     private Integer cityId;
 
-    private Integer createTime;
+    private LocalDateTime createTime;
 
     private Integer isDisable;
 
@@ -213,11 +214,11 @@ public class User implements Serializable {
         this.cityId = cityId;
     }
 
-    public Integer getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 

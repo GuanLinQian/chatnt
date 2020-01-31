@@ -12,7 +12,7 @@ public class TestDemo {
 
 
         System.out.println(DigestUtils.md5DigestAsHex("000000".getBytes()));
-        System.out.println(RandomStringUtils.random(9,true,true));
+        System.out.println(RandomStringUtils.random(6,false,true));
 
 
 
