@@ -15,10 +15,11 @@ import java.util.Map;
 public class InitMapJson {
     private static Map map;
 
-    public static Map returnInitIndex(User user, List<Link>links){
+    public static Map returnInitIndex(User user, List<Link>links,Integer count){
         map=new HashMap();
        map.put("user",user);
        map.put("links",links);
+       map.put("count",count);
         return  map;
     }
 }

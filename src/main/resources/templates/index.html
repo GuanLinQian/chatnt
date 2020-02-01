@@ -149,7 +149,7 @@
       	
       </div>
       <div id="qd" class="qd">
-      	<li style="color: red; font-weight: bold; font-size: 20px;">你2020年已累计签到:0天</li>
+      	<li style="color: red; font-weight: bold; font-size: 20px;">你2020年已累计签到:{{count}}天</li>
       <br />
       <button class="layui-btn" @click="qd">点击签到</button>
       </div>
@@ -176,7 +176,8 @@
 		data:{
 			cityWeather:{},
 
-            links:[]
+            links:[],
+            count:''
 			
 		},
 		el:'#index',
@@ -206,6 +207,7 @@
             success:function (res) {
          $("#headInfo").html('<img src="'+res.user.headPortrait+'" class="layui-nav-img" title="'+res.user.signaTure+'">'+res.user.nickName);
              index.links=res.links;
+             index.count=res.count;
             }
 
 
@@ -219,8 +221,28 @@
 		},
 		methods:{
 			qd:function(){
-				layer.alert("你已成功签到！",{icon:6})
+
+
+                $.ajax({
+                    type:'post',
+                    url:'/signin/userSign',
+                    success:function (res) {
+                        if(res.sign){
+                            layer.alert(res.msg,{icon:6},function () {
+                                window.location.reload();
+                            })
+                        }else {
+                            layer.alert(res.msg,{icon:5})
+                        }
+
+
+                }
+
+
+                })
+
 			}
+
 			
 		}
 		
