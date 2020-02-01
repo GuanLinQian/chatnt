@@ -109,7 +109,7 @@
             </li>
         </div>
         <li class="layui-nav-item layui-layout-right" lay-unselect="">
-            <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">林迁</a>
+            <a href="javascript:;" id="headInfo"></a>
             <dl class="layui-nav-child">
 
                 <dd><a href="javascript:;">退出</a></dd>
@@ -140,15 +140,9 @@
       <div class="gg" id="gg">
       	<ul>
       		
-      		<li>站长推荐</li>
-      		<li>站长推荐</li>
-      		<li>站长推荐</li>
-      		<li>站长推荐</li>
-      		<li>站长推荐</li>
-      		<li>站长推荐</li>
-      		<li>站长推荐</li>
-      		<li>站长推荐</li>
-      		<li>站长推荐</li>
+      		<li style="font-size: 25px;color: red">站长推荐</li>
+            <li v-for="(link,i) in links" :title="link.frameWork"><a :href="link.href" style="text-decoration: none" target="_blank">{{link.title}}</a></li>
+
       	</ul>
       	
       	
@@ -159,8 +153,8 @@
       <br />
       <button class="layui-btn" @click="qd">点击签到</button>
       </div>
-      
-	<div>
+
+
 		
 		
 		
@@ -175,12 +169,14 @@
 <div style="text-align: center;">技术交流网 © 2020 http://www.chatnt.club 版权所有| 赣ICP备xxxx号</div>
 <script src="/lib/layui/layui.all.js"></script>
 
-</script>
+
 <script>
 	var layer=layui.layer;
 	var index =new Vue({
 		data:{
-			cityWeather:{}
+			cityWeather:{},
+
+            links:[]
 			
 		},
 		el:'#index',
@@ -202,6 +198,22 @@
            
         }
     });
+
+
+		$.ajax({
+            type:'post',
+            url:'/init/initIndex',
+            success:function (res) {
+         $("#headInfo").html('<img src="'+res.user.headPortrait+'" class="layui-nav-img" title="'+res.user.signaTure+'">'+res.user.nickName);
+             index.links=res.links;
+            }
+
+
+
+
+        })
+
+
 			
 			
 		},
