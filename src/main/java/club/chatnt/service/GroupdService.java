@@ -1,6 +1,7 @@
 package club.chatnt.service;
 
-import club.chatnt.entity.Group;
+
+import club.chatnt.entity.Groupd;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author lq
  * @since 2020-01-30
  */
-public interface GroupService extends IService<Group> {
+public interface GroupdService extends IService<Groupd> {
 
 }

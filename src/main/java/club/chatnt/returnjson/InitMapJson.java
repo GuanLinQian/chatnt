@@ -1,6 +1,8 @@
 package club.chatnt.returnjson;
 
 import club.chatnt.entity.City;
+
+import club.chatnt.entity.Groupd;
 import club.chatnt.entity.Link;
 import club.chatnt.entity.User;
 
@@ -21,5 +23,12 @@ public class InitMapJson {
        map.put("links",links);
        map.put("count",count);
         return  map;
+    }
+    public static  Map returnInitChatSel(User user,List<Groupd> groupds){
+        map=new HashMap();
+        map.put("user",user);
+        map.put("groupds",groupds);
+        return map;
+
     }
 }

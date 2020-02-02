@@ -261,7 +261,7 @@
                         url:'/user/register',
                         success:function (res) {
                             if(res.sign){
-                                layer.msg(res.msg,function () {
+                                layer.alert(res.msg,function () {
                                   layer.close(index)
                                 })
                             }else {

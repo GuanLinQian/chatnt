@@ -78,12 +78,12 @@ return map;
    return  map;
 
     }
-    public  static Map returnRegisterJson(boolean  f){
+    public  static Map returnRegisterJson(boolean  f,String loginId){
         map=new HashMap<String,Object>();
 
         if(f){
 
-            map.put("msg","注册成功！");
+            map.put("msg","注册成功！您的账号为："+loginId);
             map.put("sign",true);
 
         }else {

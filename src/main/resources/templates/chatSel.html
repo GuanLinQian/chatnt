@@ -8,6 +8,7 @@
 		<title>聊天室</title>
 		<script type="text/javascript" src="/js/vue.min.js" ></script>
 <link rel="stylesheet" href="/lib/layui/css/layui.css" />
+        <script type="text/javascript" src="/js/jquery.min.js" ></script>
 		<style>
 			#chatList li:hover{
 				background: #DDDDDD;
@@ -70,7 +71,7 @@
   </li>
   </div>
   <li class="layui-nav-item layui-layout-right" lay-unselect="">
-    <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">林迁</a>
+    <a href="javascript:;" id="headInfo"></a>
     <dl class="layui-nav-child">
     
       <dd><a href="javascript:;">退出</a></dd>
@@ -84,7 +85,7 @@
 <div class="layui-collapse">
       <div class="layui-colla-item">
     <h2 class="layui-colla-title">公共聊天室</h2>
-    <div class="layui-colla-content " v-for="chat in chatList" @click="sel(chat)">{{chat}}</div>
+    <div class="layui-colla-content layui-show" v-for="groupd in groupds" @click="sel(groupd)">{{groupd.title}}</div>
       
      </div>
   
@@ -104,16 +105,19 @@
 		var chatSel=new Vue({
 			el:'#chatSel',
 			data:{
-				chatList:['聊天室1','聊天室2','聊天室3'],
-				zk:false
+				groupds:[],
+                user:''
+
+
 			},
 			methods:{
 				sel:function(e){
+				    console.info(e)
 					layer.open({
 						type:2,
-						content:'chatRoom.html',
-						area:['500px','550px'],
-						title:e,
+						content:'/service/chatRoom.html?url='+e.link+'/'+this.user.id,
+						area:['700px','700px'],
+						title:e.title,
 						maxmin:true
 						
 						
@@ -128,6 +132,18 @@
 				layer=layui.layer;
 				element=layui.element;
 				})
+
+                $.ajax({
+                    type:'post',
+                    url:'/init/initChatSel',
+                    success:function (res) {
+                        $("#headInfo").html('<img src="'+res.user.headPortrait+'" class="layui-nav-img" title="'+res.user.signaTure+'">'+res.user.nickName);
+                 chatSel.groupds=res.groupds;
+                 chatSel.user=res.user;
+                    }
+
+
+                })
 				
 			}
 			

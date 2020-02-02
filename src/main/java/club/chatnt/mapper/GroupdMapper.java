@@ -1,6 +1,7 @@
 package club.chatnt.mapper;
 
-import club.chatnt.entity.Group;
+
+import club.chatnt.entity.Groupd;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +12,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lq
  * @since 2020-01-30
  */
-public interface GroupMapper extends BaseMapper<Group> {
+public interface GroupdMapper extends BaseMapper<Groupd> {
 
 }

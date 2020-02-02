@@ -9,8 +9,8 @@
 		<style>
 			#chatContent{
 				margin: auto;
-				width: 400px;
-				height: 400px;
+				width: 600px;
+				height: 500px;
 				background: #E8E8E8;
 				border-radius: 10px;
 				overflow-y: scroll;
@@ -29,10 +29,10 @@
 			
 		</div>
 		<br>
-		<div style="width: 400px; height: 100px; margin: auto;">
-			<textarea style="width: 400px; height: 50px;resize:none ;border-radius: 5px;" v-model="msg" ></textarea>
+		<div style="width: 600px; height: 100px; margin: auto;">
+			<textarea style="width: 600px; height: 50px;resize:none ;border-radius: 5px;" v-model="groupMessage.content" ></textarea>
 			<button class="layui-btn" @click="sendMsg">发送</button>&nbsp;&nbsp;&nbsp;
-					<button class="layui-btn" @click="sendMsg2">发送2</button>&nbsp;&nbsp;&nbsp;
+
 		<button class="layui-btn" @click="resetMsg">重置</button>
 		</div>
 		
@@ -40,42 +40,86 @@
 		<script type="text/javascript" src="/lib/layui/layui.all.js" ></script>
 		
 		<script>
-			var layer=layui.layer;
+			var user=parent.chatSel.user
+            var layer =parent.layer;
+            var index=layer.getFrameIndex(window.name);
 		var chatRoom=new Vue({
 			el:"#chatRoom",
 			data:{
-				msg:''
+				groupMessage:{
+                   content:''
+
+				},
+				ws:''
+
 				
 			},
 			methods:{
 				sendMsg:function(){
-					if(chatRoom.msg==''){
+
+					if(this.groupMessage.content==''){
 						layer.msg("请输入聊天内容再发送！")
 						return
 					}
 					$("#chatContent").append(
-					'<div  style="width:400px;height:70px;"><div style="font-size: 10px;color: ##000000;width: 70px;height: 30px; float: right;text-align: right;"><span>林迁</span><img src="//t.cn/RCzsdCq" class="layui-nav-img"></div><div style=" width: 320px; float: right; font-family: 宋体;	margin-top: 10px;"><span style="word-break:break-all;background: white; border-radius: 2px;float:right">'
-					+chatRoom.msg+'</span></div></div>')
-					chatRoom.msg=''
+					'<div  style="width:600px;height:70px;"><div style="font-size: 10px;color: ##000000;width: 70px;height: 30px; float: right;text-align: right;"><span>'+ user.nickName +'</span><img src="'+ user.headPortrait +'" class="layui-nav-img"></div><div style=" width: 320px; float: right; font-family: 宋体;	margin-top: 10px;"><span style="word-break:break-all;background: white; border-radius: 2px;float:right">'
+					+this.groupMessage.content+'</span></div></div>')
+                    this.ws.send(JSON.stringify(this.groupMessage));
+                    this.groupMessage.content=''
 					
 				},
-				sendMsg2:function(){
-					if(chatRoom.msg==''){
-						layer.msg("请输入聊天内容再发送！")
-						return
-					}
-						$("#chatContent").append(
-					'<div  style="width:400px;height:70px;"><div style="font-size: 10px;color: ##000000;width: 70px;height: 30px; float: left;text-align: left;"><img src="//t.cn/RCzsdCq" class="layui-nav-img"><span>林迁</span></div><div style=" width: 320px; float: left; font-family: 宋体;	margin-top: 10px;"><span style="word-break:break-all;background:#93D1FF ; border-radius: 2px;float:left">'
-					+chatRoom.msg+'</span></div></div>')
-					chatRoom.msg=''
-					
-				}
-				,
+
 				resetMsg:function(){
-					chatRoom.msg=''
+                    this.groupMessage.content=''
 				}
 				
-			}
+			},
+			mounted:function () {
+                var url=window.location.search; //获取url中"?"符后的字串
+                var target;
+                if(url.indexOf("?")!=-1){
+                    target= url.substr(url.indexOf("=")+1);
+                }
+                //判断浏览器支持不支持websocket
+                if ('WebSocket' in window) {
+                    this.ws = new WebSocket(target);
+                } else if ('MozWebSocket' in window) {
+                    this.ws = new MozWebSocket(target);
+                } else {
+                    layer.alert('你的浏览器不支持websocket!,请更换');
+                    return;
+                }
+                this.ws.onmessage=function (event) {
+
+
+                    eval("var data ="+event.data+";")
+
+					this.user=data.user;
+                 if(data.type==1) {
+                     $("#chatContent").append(
+                         '<div  style="width:600px;height:70px;"><div style="font-size: 10px;color: ##000000;width: 70px;height: 30px; float: left;text-align: left;"><img src="' + data.user.headPortrait + '" class="layui-nav-img"><span>' + data.user.nickName + '</span></div><div style=" width: 320px; float: left; font-family: 宋体;	margin-top: 10px;"><span style="word-break:break-all;background:#93D1FF ; border-radius: 2px;float:left">'
+                         + data.gmsg.content + '</span></div></div>')
+                 }else {
+                     $("#chatContent").append(
+                         '<div  style="width:600px;height:70px;"><div style="font-size: 10px;color: ##000000;width: 70px;height: 30px; float: left;text-align: left;"><img src="http://localhost:8080/upload/head/sys.jpg" class="layui-nav-img"><span>系统：</span></div><div style=" width: 320px; float: left; font-family: 宋体;	margin-top: 10px;"><span style="word-break:break-all;background:#93D1FF ; border-radius: 2px;float:left">'
+                         + data.gmsg.content + '当前在线人数为：'+data.count+'</span></div></div>')
+
+				 }
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
 			
 		})
 			

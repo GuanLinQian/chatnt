@@ -62,7 +62,8 @@ User user=userService.getOne(new QueryWrapper<User>().eq("email",email));
     user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
     user.setCreateTime(LocalDateTime.now());
     user.setIsDisable(1);
-    user.setLoginId(RandomStringUtils.random(9,false,true));
+    String loginId=RandomStringUtils.random(9,false,true);
+    user.setLoginId(loginId);
     System.out.println(user);
 
     if(user.getSex().equals("男")) {
@@ -70,7 +71,7 @@ User user=userService.getOne(new QueryWrapper<User>().eq("email",email));
     }else {
         user.setHeadPortrait("/upload/head/woman.jpg");
     }
-return  UserMapJson.returnRegisterJson(userService.save(user));
+return  UserMapJson.returnRegisterJson(userService.save(user), loginId);
 
 
 
