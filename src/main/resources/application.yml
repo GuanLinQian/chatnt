@@ -1,4 +1,4 @@
- #Êı¾İ¿âÅäÖÃ
+
   spring:
     datasource:
       username: lq
@@ -7,7 +7,7 @@
       driver-class-name: com.mysql.cj.jdbc.Driver
       hikari:
         max-lifetime: 1800000
-        #ÓÊ¼şÅäÖÃ
+
     mail:
       protocol: smtp
       default-encoding: UTF-8
@@ -15,9 +15,12 @@
       password: q19990418
       test-connection: true
       username: chatnt@163.com
- #mybatisplusÅäÖÃ
+
   mybatis-plus:
     mapper-locations: classpath*:mapper/*Mapper.xml
     configuration:
       map-underscore-to-camel-case: false
-#ÓÊ¼şÅäÖÃ
+
+    type-aliases-package: club.chatnt.entity
+  server:
+    port: 8081

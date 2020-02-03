@@ -1,6 +1,7 @@
 package club.chatnt.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -31,7 +32,26 @@ public class Article implements Serializable {
     private String title;
 
     private Integer isScreen;
+@TableField(exist = false)
+    private  User u;
+@TableField(exist = false)
+   private  Integer count=0;
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public User getU() {
+        return u;
+    }
+
+    public void setU(User u) {
+        this.u = u;
+    }
 
     public Integer getId() {
         return id;

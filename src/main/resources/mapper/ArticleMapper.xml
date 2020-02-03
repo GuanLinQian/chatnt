@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="club.chatnt.mapper.ArticleMapper">
+    <resultMap id="art_User" type="club.chatnt.entity.Article">
+<id property="id" column="id"/>
+ <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="code" column="code"/>
+        <result property="isScreen" column="isScreen"/>
+        <result property="createTime" column="createTime"/>
+        <result property="userId" column="userId"/>
+        <result property="count" column="s"/>
+<association property="u" javaType="club.chatnt.entity.User">
+    <id property="id" column="userId"/>
+    <result property="nickName" column="nickName"/>
+    <result property="headPortrait" column="headPortrait"/>
+</association>
 
+
+
+    </resultMap>
+
+
+
+
+<select id="getArticles_User" resultMap="art_User">
+    SELECT a.*,u.nickName,u.headPortrait,(SELECT COUNT(*) FROM  COMMENT c  WHERE c.articleId=a.id  ) s FROM article a JOIN USER u ON a.`userId`=u.id  WHERE a.`isScreen`=1
+</select>
 </mapper>

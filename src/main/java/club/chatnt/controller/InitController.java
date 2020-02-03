@@ -7,6 +7,7 @@ import club.chatnt.entity.Signin;
 import club.chatnt.entity.User;
 import club.chatnt.returnjson.InitMapJson;
 
+import club.chatnt.service.ArticleService;
 import club.chatnt.service.GroupdService;
 import club.chatnt.service.LinkService;
 import club.chatnt.service.SigninService;
@@ -35,7 +36,8 @@ public class InitController {
     SigninService signinService;
     @Autowired
     GroupdService groupdService;
-
+@Autowired
+    ArticleService articleService;
     @RequestMapping("initIndex")
     public Map initIndex(){
         User user=(User)request.getSession().getAttribute("user");
@@ -49,5 +51,12 @@ public class InitController {
         User user=(User)request.getSession().getAttribute("user");
         List<Groupd>groupds=groupdService.list();
 return  InitMapJson.returnInitChatSel(user,groupds);
+    }
+
+    @RequestMapping("initTc")
+
+    public  Map initTc(){
+        User user=(User)request.getSession().getAttribute("user");
+        return  InitMapJson.returnInitTc(user);
     }
 }

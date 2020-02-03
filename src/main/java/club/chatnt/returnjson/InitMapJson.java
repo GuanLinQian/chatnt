@@ -31,4 +31,10 @@ public class InitMapJson {
         return map;
 
     }
+    public static Map returnInitTc(User user){
+        map=new HashMap();
+        map.put("user",user);
+        return  map;
+
+    }
 }
