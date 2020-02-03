@@ -2,6 +2,10 @@ package club.chatnt.mapper;
 
 import club.chatnt.entity.Comment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface CommentMapper extends BaseMapper<Comment> {
 
+    List<Comment> getCom_User(Page page, @Param("articleId")Integer id);
 }

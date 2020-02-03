@@ -17,4 +17,5 @@ import java.util.List;
 public interface ArticleMapper extends BaseMapper<Article> {
 
  List<Article> getArticles_User(Page page);
+ List<Article> getArticles_UserTop();
 }

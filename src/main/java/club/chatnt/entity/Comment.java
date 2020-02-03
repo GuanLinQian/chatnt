@@ -1,6 +1,7 @@
 package club.chatnt.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -28,6 +29,16 @@ public class Comment implements Serializable {
 
     private Integer userId;
 
+@TableField(exist = false)
+    private User u;
+
+    public User getU() {
+        return u;
+    }
+
+    public void setU(User u) {
+        this.u = u;
+    }
 
     public Integer getId() {
         return id;

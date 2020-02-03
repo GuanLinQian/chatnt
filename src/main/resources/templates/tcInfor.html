@@ -12,8 +12,8 @@
 	</head>
 	<body>
 		<div id="tcInfor">
-			<div style="text-align: center; font-size: 20px; color: black;font-weight: bold;">{{title}}--{{tcId}}</div>
-			<div v-html="content"></div>
+			<div style="text-align: center; font-size: 20px; color: black;font-weight: bold;">{{art.title}}</div>
+			<div v-html="art.content"></div>
 			
 
 		
@@ -22,30 +22,31 @@
 	
          </pre>
         
-        <textarea></textarea>
-       <div><button type="button" class="layui-btn">发表评论</button></div>
+        <textarea v-model="content"></textarea>
+       <div><button type="button" class="layui-btn" @click="addComment">发表评论</button></div>
 			<br>
 			<br>
-			<div>
-				<h3 style="color: red;font-weight: bold">评论区</h3>
-				<br>
-            <li style="background: #DDDDDD;height: 50px;margin-bottom: 20px" ><img src="//t.cn/RCzsdCq" class="layui-nav-img">林迁：222222222222222220000</li>
+			<h3 style="color: red;font-weight: bold">评论区</h3>
+			<br>
+			<br>
+			<div id="commentList">
 
-				<li style="background: #DDDDDD;height: 50px;margin-bottom: 20px" ><img src="//t.cn/RCzsdCq" class="layui-nav-img">林迁：222222222222222220000</li>
-			<li style="background: #DDDDDD;height: 50px;margin-bottom: 20px" ><img src="//t.cn/RCzsdCq" class="layui-nav-img">林迁：222222222222222220000</li>
+
+
 			</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="/lib/layui/layui.js" ></script>
 	<script>
+		var layer=parent.layer;
+        var index=layer.getFrameIndex(window.name);
 		var tcInfor=new Vue({
 			el:"#tcInfor",
 			data:{
-				title:"主题啊",
-				content:"<div>这是内容</div>",
-				code:'',
-				comments:[],
-				tcId:0
+			    art:{} ,
+				id:'',
+				content:''
+
 				
 				
 				
@@ -53,61 +54,107 @@
 			mounted:function(){
 				
 				 var url=window.location.search; //获取url中"?"符后的字串
-                  var num;   
+
                   if(url.indexOf("?")!=-1){
-                  this.tcId = url.substr(url.indexOf("=")+1);
+                      this.id= url.substr(url.indexOf("=")+1);
                     }
+                  $.ajax({
+					  type:'post',
+					  data:{id:this.id},
+					  url:'/article/getArtById',
+					  success:function (res) {
+					      tcInfor.art=res.art;
+                          $("#codeArea").text(tcInfor.art.code)
+
+
+                          layui.use(['code','flow'], function(){ //加载code模块
+                              var flow=layui.flow;
+                              layui.code({
+                                  elem:'pre',
+                                  about:false,
+                                  title:'code',
+                                  height:'300px',
+                                  encode:false,
+                                  skin: 'notepad'
+
+                              })
+                              flow.load({
+                                  elem: '#commentList' //指定列表容器
+                                  ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                                      var lis = [];
+                                      //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                                      $.get('/comment/getCom_User?page='+page+'&articleId='+tcInfor.id, function(res){
+                                          //假设你的列表返回在data集合中
+
+                                          layui.each(res.coms, function(index, item){
+                                              lis.push('<li style="background: #DDDDDD;height: 50px;margin-bottom: 20px" ><img src="'+item.u.headPortrait+'" class="layui-nav-img">'+item.u.nickName+':'+item.content+'</li>');
+
+                                          });
+
+                                          //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                                          //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                                          next(lis.join(''), page < res.pages);
+                                      });
+                                  }
+                              });
+
+
+
+                          })
+
+                      }
+
+
+
+
+
+
+
+				  })
                 
-            
+
 				  
 				
 				
 				
-				 $("#codeArea").text(`package com.email.controller;
-
-import com.email.entity.Mail;
-import com.email.service.MailService;
-import com.email.util.NumberUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-/**
- * 时间:17:39
- * 作者：Maibenben
- **/
-@Controller
-public class MailController {
-@Autowired
-    MailService mailService;
-@RequestMapping("sendMail")
-    public String sendMail(Mail mail){
-        mailService.sendSimpleMail(mail.getTo(),mail.getSubject(),mail.getContent()+"验证码："+ NumberUtil.getNumByYzm());
 
 
-return "success";
-    }
-
-}`)
-				
-					layui.use('code', function(){ //加载code模块
-                         layui.code({
-                                 elem:'pre',
-                                 about:false,
-                                 title:'code',
-                                 height:'300px',
-                                 encode:false,
-                                 skin: 'notepad' 
-	
-	
-	
-	
-	                      })
-                         })
 				
 				
 				
 		},
+		methods:{
+			addComment:function () {
+			    if(tcInfor.content==''){
+        layer.msg('请输入评论内容！');
+        return;
+				}
+
+            $.ajax({
+				type:'post',
+				data:{articleId:tcInfor.id,content:tcInfor.content},
+				url:'/comment/addComment',
+				success:function (res) {
+					if(res.sign){
+					    layer.msg(res.msg,function () {
+                            layer.close(index)
+                        })
+					}else {
+
+                        layer.msg(res.msg,function () {
+                            layer.close(index)
+                        })
+					}
+                }
+
+
+
+			})
+
+            }
+
+
+		}
 			
 			
 			

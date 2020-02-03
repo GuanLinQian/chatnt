@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="club.chatnt.mapper.CommentMapper">
+<resultMap id="com_user" type="club.chatnt.entity.Comment">
+    <id property="id" column="id"/>
+    <result property="userId" column="userId"/>
+    <result property="content" column="content"/>
+    <result property="createTime" column="createTime"/>
 
+
+    <association property="u" javaType="club.chatnt.entity.User">
+        <id property="id" column="userId"/>
+        <result property="nickName" column="nickName"/>
+        <result property="headPortrait" column="headPortrait"/>
+    </association>
+
+
+
+</resultMap>
+
+
+    <select id="getCom_User" resultMap="com_user">
+        SELECT c.*,u.nickName,u.headPortrait FROM COMMENT c JOIN USER u  ON c.`userId`=u.`id` WHERE c.`articleId`=#{articleId} ORDER BY c.`createTime` DESC
+
+    </select>
 </mapper>

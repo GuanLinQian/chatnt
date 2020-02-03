@@ -88,11 +88,11 @@
 			<span><i style="color: red; font-size: 30px;" class="layui-icon layui-icon-top"></i></span>
 			
 			<div style="width: 600px;height: 47px;">
-				<div style="width: 50px;height: 47px; float: left;"><img :src="tcTopAcr.img" style="width: 40px;height: 40px;padding-left: 3px;" class="layui-nav-img"></div>
+				<div style="width: 50px;height: 47px; float: left;"><img :src="tcTopAcr.u.headPortrait" style="width: 40px;height: 40px;padding-left: 3px;" class="layui-nav-img"></div>
 			<div style="width: 550px;height: 27px; float: right; "><span style="font-size: 12px; border-style: solid; border-width: 1px; border-color: green; width: 50px; color: green;"> 主题</span> &nbsp; &nbsp; &nbsp;<a>{{tcTopAcr.title}}</a></div>
-			<div style="width: 550px;height: 20px;float: right ;color: #303C5D;font-size: 13px;  ">{{tcTopAcr.username}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  {{tcTopAcr.time.substr(0,9)}}
+			<div style="width: 550px;height: 20px;float: right ;color: #303C5D;font-size: 13px;  ">{{tcTopAcr.u.nickName}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  {{tcTopAcr.createTime.substr(0,10)}}
 			<div style="float: right; padding-right: 10px;">
-			<i class="layui-icon layui-icon-reply-fill"></i>	11
+			<i class="layui-icon layui-icon-reply-fill"></i>	{{tcTopAcr.count}}
 			</div>
 			</div>
 			</div>
@@ -144,9 +144,7 @@
 	var tc =new Vue({
 		data:{
 			tcTopAcrs:[
-			 { id:1,title:'网站采用技术',img:'//t.cn/RCzsdCq',username:"林迁",time:new Date().toLocaleString()},
-		    {id:2,title:'js绑定参数',img:'//t.cn/RCzsdCq',username:"小李",time:new Date().toLocaleString()}
-			
+
 		],
 		tcList:[
 		 
@@ -178,6 +176,7 @@
 				success:function (res) {
 
 					tc.tcList=res.arts;
+					tc.tcTopAcrs=res.tcTopAcrs;
 
                     layui.use(['layer','laypage','element'],function(){
                         console.info(tc)
@@ -238,13 +237,16 @@
 		 	layer.open({
 		 		type:2,
 		 		content:'tcInfor.html?id='+id,
-		 		area:['600px','600px'],
+		 		area:['800px','600px'],
 		 		title:'详情',
-		 		maxmin:true
-		 		
-		 		
-		 		
-		 	})
+		 		maxmin:true,
+                end:function () {
+
+                }
+
+
+
+            })
 		 	
 		 	
 		 }

@@ -24,6 +24,13 @@
 
 
 <select id="getArticles_User" resultMap="art_User">
-    SELECT a.*,u.nickName,u.headPortrait,(SELECT COUNT(*) FROM  COMMENT c  WHERE c.articleId=a.id  ) s FROM article a JOIN USER u ON a.`userId`=u.id  WHERE a.`isScreen`=1
+    SELECT a.*,u.nickName,u.headPortrait,(SELECT COUNT(*) FROM  COMMENT c  WHERE c.articleId=a.id  ) s FROM article a JOIN USER u ON a.`userId`=u.id  WHERE a.`isScreen`=1 ORDER BY a.`createTime` DESC
 </select>
+
+ <select id="getArticles_UserTop"   resultMap="art_User" >
+
+     SELECT a.*,u.nickName,u.headPortrait,(SELECT COUNT(*) FROM  COMMENT c  WHERE c.articleId=a.id  ) s FROM article a JOIN USER u ON a.`userId`=u.id  WHERE a.`isScreen`=1 ORDER BY s desc  limit 0,2
+
+
+ </select>
 </mapper>
