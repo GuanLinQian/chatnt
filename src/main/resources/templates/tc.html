@@ -84,12 +84,12 @@
 	<div id="tcTop">
 	<ul>
 		
-		<li v-for="tcTopAcr in tcTopAcrs" @click="openTc(tcTopAcr.id)">
+		<li v-for="tcTopAcr in tcTopAcrs" >
 			<span><i style="color: red; font-size: 30px;" class="layui-icon layui-icon-top"></i></span>
 			
 			<div style="width: 600px;height: 47px;">
 				<div style="width: 50px;height: 47px; float: left;"><img :src="tcTopAcr.u.headPortrait" style="width: 40px;height: 40px;padding-left: 3px;" class="layui-nav-img"></div>
-			<div style="width: 550px;height: 27px; float: right; "><span style="font-size: 12px; border-style: solid; border-width: 1px; border-color: green; width: 50px; color: green;"> 主题</span> &nbsp; &nbsp; &nbsp;<a>{{tcTopAcr.title}}</a></div>
+			<div style="width: 550px;height: 27px; float: right; "><span style="font-size: 12px; border-style: solid; border-width: 1px; border-color: green; width: 50px; color: green;"> 主题</span> &nbsp; &nbsp; &nbsp;<a @click="openTc(tcTopAcr.id)" style="font-weight: bold;color: blue">{{tcTopAcr.title}}</a></div>
 			<div style="width: 550px;height: 20px;float: right ;color: #303C5D;font-size: 13px;  ">{{tcTopAcr.u.nickName}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  {{tcTopAcr.createTime.substr(0,10)}}
 			<div style="float: right; padding-right: 10px;">
 			<i class="layui-icon layui-icon-reply-fill"></i>	{{tcTopAcr.count}}
@@ -105,12 +105,12 @@
 	<div id="tcList"> 
 		<ul>
 		
-		<li v-for="tcTopAcr in tcList" @click="openTc(tcTopAcr.id)">
+		<li v-for="tcTopAcr in tcList" >
 			<span><i style="color: #666666; font-size: 10px;" class="layui-icon layui-icon-note"></i></span>
 			<div style="height: 20px;"></div>
 			<div style="width: 600px;height: 47px;">
 				<div style="width: 50px;height: 47px; float: left;"><img :src="tcTopAcr.u.headPortrait" style="width: 40px;height: 40px;padding-left: 3px;" class="layui-nav-img"></div>
-			<div style="width: 550px;height: 27px; float: right; "><span style="font-size: 12px; border-style: solid; border-width: 1px; border-color: green; width: 50px; color: green;"> 主题</span> &nbsp; &nbsp; &nbsp;<a>{{tcTopAcr.title}}</a></div>
+			<div style="width: 550px;height: 27px; float: right; "><span style="font-size: 12px; border-style: solid; border-width: 1px; border-color: green; width: 50px; color: green;" > 主题</span> &nbsp; &nbsp; &nbsp;<a @click="openTc(tcTopAcr.id)" style="font-weight: bold;color: blue">{{tcTopAcr.title}}</a></div>
 			<div style="width: 550px;height: 20px;float: right ;color: #303C5D;font-size: 13px;  ">{{tcTopAcr.u.nickName}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  {{tcTopAcr.createTime.substr(0,10)}}
 			<div style="float: right; padding-right: 10px;">
 			<i class="layui-icon layui-icon-reply-fill"></i>	{{tcTopAcr.count}}
@@ -171,7 +171,7 @@
 			//加载数据
 			$.ajax({
 				type:'post',
-				data:{page:1,limit:2},
+				data:{page:1,limit:6},
 				url:'/article/getArts_User',
 				success:function (res) {
 
@@ -185,7 +185,7 @@
                         laypage.render({
                             elem: 'tcPage' //注意，这里的 test1 是 ID，不用加 # 号
                             ,count:res.count//数据总数，从服务端得到
-                            ,limit:2,
+                            ,limit:6,
                             limits:[10, 20, 30, 40, 50],
                             layout:['count','prev', 'page', 'next','limit','refresh'],
                             jump: function(obj, first){

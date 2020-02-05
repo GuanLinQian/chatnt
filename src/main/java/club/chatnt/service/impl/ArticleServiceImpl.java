@@ -25,6 +25,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
+    public Page getArticles_UserInfor(Page page, Integer id) {
+        return page.setRecords(this.baseMapper.getArticles_UserInfor(page,id));
+    }
+
+    @Override
     public List<Article> getArticles_UserTop() {
         return this.baseMapper.getArticles_UserTop();
     }

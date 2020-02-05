@@ -46,9 +46,11 @@
 	</body>
 	<script src="/lib/layui/layui.js"></script>
 	<script>
+        var layer=parent.layer;
+        var zindex=layer.getFrameIndex(window.name);
+        var index;
 		var layedit;
-		var layer;
-		 var index;
+
 		var tcAdd=new Vue({
 			el:'#tcAdd',
 			data:{
@@ -60,15 +62,15 @@
 				
 			},
 			mounted:function(){
-				layui.use(['layedit','layer'],function(){
+				layui.use(['layedit'],function(){
 					layedit = layui.layedit;
-					layer=layui.layer;
+
 					
 					
                     index=  layedit.build('edit',{
 						uploadImage: {
-                              url: '' //接口url
-                             ,type: '' //默认post
+                              url: '/upload/uploadContentImg' //接口url
+                             ,type: 'post' //默认post
                            }
                        
 						
@@ -96,7 +98,24 @@
 					}
 					tcAdd.form.content=content;
 					console.info(tcAdd.form)
-					
+					$.ajax({
+                        type:'post',
+                        data:tcAdd.form,
+                        url:'/article/artAdd',
+                        success:function (res) {
+                            if(res.sign){
+                                layer.msg(res.msg,function () {
+                               // parent.layer.close(zindex)
+                                  //  parent.window.location.reload()
+
+                                })
+                            }else {
+                                layer.msg(res.msg)
+                            }
+                        }
+
+
+                    })
 				}
 				
 				

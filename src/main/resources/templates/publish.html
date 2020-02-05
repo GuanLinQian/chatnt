@@ -86,7 +86,7 @@
 			</li>
 		</div>
 		<li class="layui-nav-item layui-layout-right" lay-unselect="">
-			<a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">林迁</a>
+			<a href="javascript:;" id="headInfo"></a>
 			<dl class="layui-nav-child">
 
 				<dd><a href="javascript:;">退出</a></dd>
@@ -107,16 +107,16 @@
 	<div id="plList"> 
 		<ul>
 		
-		<li v-for="plTopAcr in plList">
+		<li v-for="plTopAcr in plList" >
 			<span><i style="color: #666666; font-size: 10px;" class="layui-icon layui-icon-note"></i></span>
 			<div style="height: 20px;"></div>
 			<div style="width: 600px;height: 47px;">
-				<div style="width: 50px;height: 47px; float: left;"><img :src="plTopAcr.img" style="width: 40px;height: 40px;padding-left: 3px;" class="layui-nav-img"></div>
-			<div style="width: 550px;height: 27px; float: right; "><span style="font-size: 12px; border-style: solid; border-width: 1px; border-color: green; width: 50px; color: green;"> 主题</span> &nbsp; &nbsp; &nbsp;<a>{{plTopAcr.title}}</a></div>
-			<div style="width: 550px;height: 20px;float: right ;color: #303C5D;font-size: 13px;  ">{{plTopAcr.username}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  {{plTopAcr.time.substr(0,10)}}
+				<div style="width: 50px;height: 47px; float: left;"><img :src="plTopAcr.u.headPortrait" style="width: 40px;height: 40px;padding-left: 3px;" class="layui-nav-img"></div>
+			<div style="width: 550px;height: 27px; float: right; "><span style="font-size: 12px; border-style: solid; border-width: 1px; border-color: green; width: 50px; color: green;"> 主题</span> &nbsp; &nbsp; &nbsp;<a @click="openTc(plTopAcr.id)" style="font-weight: bold;color: blue">{{plTopAcr.title}}</a></div>
+			<div style="width: 550px;height: 20px;float: right ;color: #303C5D;font-size: 13px;  ">{{plTopAcr.u.nickName}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  {{plTopAcr.createTime.substr(0,10)}}
 			<div style="float: right; padding-right: 10px;">
-			<i class="layui-icon layui-icon-reply-fill"></i>	11
-			<span @click="del"><i class="layui-icon layui-icon-delete" style=""></i></span>
+			<i class="layui-icon layui-icon-reply-fill"></i>	{{plTopAcr.count}}
+			<span @click="del(plTopAcr.id)"><i class="layui-icon layui-icon-delete" style=""></i></span>
 			</div>
 			
 			</div>
@@ -142,7 +142,7 @@
 <div style="text-align: center;">技术交流网 © 2020 http://www.chatnt.club 版权所有| 赣ICP备xxxx号</div>
 <script src="/lib/layui/layui.js"></script>
 
-</script>
+
 <script>
 	var layer;
 	var laypage;
@@ -152,38 +152,59 @@
 			},
 		el:'#pl',
 		mounted:function(){
-			layui.use(['layer','laypage','element'],function(){
-				
-				layer =layui.layer;
-				laypage=layui.laypage;
-				laypage.render({
-                     elem: 'plPage' //注意，这里的 test1 是 ID，不用加 # 号
-                    ,count: 50 //数据总数，从服务端得到
-                    ,limit:5,
-                     limits:[10, 20, 30, 40, 50],
-                     layout:['count','prev', 'page', 'next','limit','refresh'],
-                     jump: function(obj, first){
-                         //obj包含了当前分页的所有参数，比如：
-                         console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                          console.log(obj.limit); //得到每页显示的条数
-                     var list=[
-		    {title:'网站采用技术',img:'//t.cn/RCzsdCq',username:"林迁",time:new Date().toLocaleString()},
-		    {title:'js绑定参数',img:'//t.cn/RCzsdCq',username:"小李",time:new Date().toLocaleString()},
-			{title:'网站采用技术',img:'//t.cn/RCzsdCq',username:"林迁",time:new Date().toLocaleString()},
-		    {title:'js绑定参数',img:'//t.cn/RCzsdCq',username:"小李",time:new Date().toLocaleString()},
-			{title:'网站采用技术',img:'//t.cn/RCzsdCq',username:"林迁",time:new Date().toLocaleString()},
-		    {title:'js绑定参数',img:'//t.cn/RCzsdCq',username:"小李",time:new Date().toLocaleString()}
-			];
-                     pl.plList=list;
+            //加载信息
+            $.ajax({
+                type:'post',
+                url:'/init/initTc',
+                success:function (res) {
+                    $("#headInfo").html('<img src="'+res.user.headPortrait+'" class="layui-nav-img" title="'+res.user.signaTure+'">'+res.user.nickName);
+
+                }
+
+
+
+
+            })		//加载数据
+            $.ajax({
+                type: 'post',
+                data: {page: 1, limit: 7},
+                url: '/article/getArts_UserInfor',
+                success: function (res) {
+                      pl.plList=res.arts
+                    layui.use(['layer', 'laypage', 'element'], function () {
+
+                        layer = layui.layer;
+                        laypage = layui.laypage;
+                        laypage.render({
+                            elem: 'plPage' //注意，这里的 test1 是 ID，不用加 # 号
+                            , count: res.count //数据总数，从服务端得到
+                            , limit: 7,
+                            limits: [10, 20, 30, 40, 50],
+                            layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh'],
+                            jump: function (obj, first) {
+
+
                                 //首次不执行
-                        if(!first){
-                            //do something
-     
-                        }
-                               }
-                      });
-})
-				
+                                if (!first) {
+                                    //do something
+                                    $.ajax({
+                                        type:'post',
+                                        data:{page:obj.curr,limit:obj.limit},
+                                        url:'/article/getArts_UserInfor',
+                                        success:function (res) {
+
+                                            pl.plList=res.arts;
+                                        }
+
+
+
+                                    })
+                                }
+                            }
+                        });
+                    })
+                }
+            })
 			
 	
 	
@@ -202,14 +223,44 @@
 					})
 			
 		},
-		del:function(){
+		del:function(id){
 			layer.confirm('警告，你正在删除你的相关文章,是否确定?', function(index){
   //do something
-                 layer.msg('已成功删除一篇文章')
-                 window.location.reload();
+               $.ajax({
+				   type:'post',
+				   data:{id:id},
+				   url:'/article/artDel',
+				   success:function (res) {
+					   if(res.sign){
+					       layer.msg(res.msg,function () {
+							   window.location.reload();
+                           })
+					   }else {
+					       layer.msg(res.msg)
+					   }
+                   }
+
+			   })
              layer.close(index);
         });   
-		}
+		},
+			openTc:function(id){
+                layer.open({
+                    type:2,
+                    content:'tcInfor.html?id='+id,
+                    area:['800px','600px'],
+                    title:'详情',
+                    maxmin:true,
+                    end:function () {
+
+                    }
+
+
+
+                })
+
+
+            }
 	
 			
 		}

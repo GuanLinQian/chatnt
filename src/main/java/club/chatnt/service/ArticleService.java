@@ -17,5 +17,7 @@ import java.util.List;
 public interface ArticleService extends IService<Article> {
     public Page getArticles_User(Page page);
     public List<Article> getArticles_UserTop();
+     Page getArticles_UserInfor(Page page,Integer id);
+
 
 }

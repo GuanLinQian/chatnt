@@ -16,13 +16,10 @@
 			<div v-html="art.content"></div>
 			
 
-		
-		<pre class="layui-code" id="codeArea">
+		<div id="codeArea"> </div>
 
-	
-         </pre>
         
-        <textarea v-model="content"></textarea>
+        <textarea v-model="content" ></textarea>
        <div><button type="button" class="layui-btn" @click="addComment">发表评论</button></div>
 			<br>
 			<br>
@@ -64,7 +61,14 @@
 					  url:'/article/getArtById',
 					  success:function (res) {
 					      tcInfor.art=res.art;
-                          $("#codeArea").text(tcInfor.art.code)
+
+						  if(tcInfor.art.code==''){
+
+						  }else {
+
+
+                              $("#codeArea").html('<pre class="layui-code" >'+tcInfor.art.code+'</pre>')
+						  }
 
 
                           layui.use(['code','flow'], function(){ //加载code模块
@@ -74,8 +78,8 @@
                                   about:false,
                                   title:'code',
                                   height:'300px',
-                                  encode:false,
-                                  skin: 'notepad'
+                                  encode:true
+
 
                               })
                               flow.load({

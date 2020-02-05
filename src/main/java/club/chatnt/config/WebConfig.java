@@ -26,7 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:C:\\Program Files\\chatnt\\");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:D:\\Program Files\\chatnt\\");
 
 
     }

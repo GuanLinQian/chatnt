@@ -33,4 +33,10 @@
 
 
  </select>
+
+    <select id="getArticles_UserInfor" resultMap="art_User">
+
+        SELECT a.*,u.nickName,u.headPortrait,(SELECT COUNT(*) FROM  COMMENT c  WHERE c.articleId=a.id  ) s FROM article a JOIN USER u ON a.`userId`=u.id  WHERE a.`isScreen`=1  and u.id=#{id} ORDER BY a.`createTime` DESC
+
+    </select>
 </mapper>
