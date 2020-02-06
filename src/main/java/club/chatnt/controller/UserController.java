@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -73,7 +74,39 @@ User user=userService.getOne(new QueryWrapper<User>().eq("email",email));
     }
 return  UserMapJson.returnRegisterJson(userService.save(user), loginId);
 
+}
+@RequestMapping("upInfor")
+    public Map upInfor(User user){
+   boolean f= userService.updateById(user);
+     User user1=userService.getById(user.getId());
+     request.getSession().setAttribute("user",user1);
+return  UserMapJson.returnUpInfor(f);
+}
+@RequestMapping("upPass")
+    public  Map upPass(String oldPass,String newPass){
+     User user=(User)request.getSession().getAttribute("user");
+     Map<String,Object> map=new HashMap<>();
 
+     if(!user.getPassword().equals(DigestUtils.md5DigestAsHex(oldPass.getBytes()))){
+         map.put("msg","旧密码输入错误！");
+         map.put("sign",false);
+     }else {
+         request.getSession().removeAttribute("user");
+         user.setPassword(DigestUtils.md5DigestAsHex(newPass.getBytes()));
+         userService.updateById(user);
+         map.put("msg","密码修改成功！");
+         map.put("sign",true);
+     }
+return map;
+
+
+}
+@RequestMapping("loginOut")
+    public  Map loginOut(){
+    request.getSession().getAttribute("user");
+    Map<String,Object> map=new HashMap<>();
+    map.put("msg","退出成功！");
+   return map;
 
 }
 }

@@ -105,14 +105,14 @@
                 <a href="/service/publish.html">我发表的</a>
             </li>
             <li class="layui-nav-item ">
-                <a href="/service/personCenter.html">个人中心<span class="layui-badge">9</span></a>
+                <a href="/service/personCenter.html">个人中心<span class="layui-badge"></span></a>
             </li>
         </div>
         <li class="layui-nav-item layui-layout-right" lay-unselect="">
             <a href="javascript:;" id="headInfo"></a>
             <dl class="layui-nav-child">
 
-                <dd><a href="javascript:;">退出</a></dd>
+                <dd><a onclick="loginOut()">退出</a></dd>
             </dl>
         </li>
     </ul>
@@ -258,6 +258,19 @@
 		})
 		
 	}
+    function loginOut() {
+        $.ajax({
+            type:'post',
+            url:'/user/loginOut',
+            success:function (res) {
+                layer.msg(res.msg,function () {
+                    window.location.href='/service/login'
+                })
+            }
+
+
+        })
+    }
 </script>
 	</body>
 </html>

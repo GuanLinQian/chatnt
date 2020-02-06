@@ -34,14 +34,14 @@
                 <a href="/service/publish.html">我发表的</a>
             </li>
             <li class="layui-nav-item ">
-                <a href="/service/personCenter.html">个人中心<span class="layui-badge">9</span></a>
+                <a href="/service/personCenter.html">个人中心<span class="layui-badge"></span></a>
             </li>
         </div>
         <li class="layui-nav-item layui-layout-right" lay-unselect="">
-            <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">林迁</a>
+            <a href="javascript:;" id="headInfo"></a>
             <dl class="layui-nav-child">
 
-                <dd><a href="javascript:;">退出</a></dd>
+                <dd><a onclick="loginOut()">退出</a></dd>
             </dl>
         </li>
     </ul>
@@ -61,90 +61,90 @@
   <div class="layui-form-item">
     <label class="layui-form-label">登录账号：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_LoginID" class="layui-input">
+      <input type="text"  v-model="userInfo.loginId" class="layui-input" disabled>
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label">昵称：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_NickName" class="layui-input">
+      <input type="text"  v-model="userInfo.nickName" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">个性签名：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_SignaTure" class="layui-input">
+      <input type="text"  v-model="userInfo.signaTure" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label">性别：</label>
     <div class="layui-input-block">
-      <input type="radio"  name="sex" value="男" v-model="userInfo.U_Sex" title="男">
-      <input type="radio"  name="sex" value="女" v-model="userInfo.U_Sex" title="女" >
+      <input type="radio"  name="sex" value="男" v-model="userInfo.sex" title="男" disabled>
+      <input type="radio"  name="sex" value="女" v-model="userInfo.sex" title="女" disabled>
     </div>
   </div>
  <div class="layui-form-item">
     <label class="layui-form-label">生日：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Birthday" class="layui-input">
+      <input type="text"  v-model="userInfo.birthday" class="layui-input" disabled>
     </div>
   </div>
  <div class="layui-form-item">
     <label class="layui-form-label">电话：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Telephone" class="layui-input">
+      <input type="text"  v-model="userInfo.telephone" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">真实姓名：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Name" class="layui-input">
+      <input type="text"  v-model="userInfo.name" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label">邮箱：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Email" class="layui-input">
+      <input type="text"  v-model="userInfo.email" class="layui-input">
     </div>
   </div>
     <div class="layui-form-item">
     <label class="layui-form-label">简介：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Intro" class="layui-input">
+      <input type="text"  v-model="userInfo.intro" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">生肖：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_ShengXiao" class="layui-input">
+      <input type="text"  v-model="userInfo.shengXiao" class="layui-input" disabled>
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label">年龄：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Age" class="layui-input">
+      <input type="text"  v-model="userInfo.age" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">星座：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Constellation" class="layui-input">
+      <input type="text"  v-model="userInfo.constellation" class="layui-input" disabled>
     </div>
   </div>
    
     <div class="layui-form-item">
     <label class="layui-form-label">职业：</label>
     <div class="layui-input-block">
-      <input type="text"  v-model="userInfo.U_Vocation" class="layui-input">
+      <input type="text"  v-model="userInfo.vocation" class="layui-input">
     </div>
   </div>
  
  <div class="layui-form-item">
     <label class="layui-form-label">国家：</label>
     <div class="layui-input-block">
-     <select v-model="userInfo.U_NationID"  lay-search>
+     <select v-model="userInfo.nationId"  disabled>
     <option value="请选择" disabled>请选择</option>
-    <option :value="nation.id"  v-for="nation in nations">{{nation.nationName}}</option>
+    <option :value="nation.id"  v-for="nation in nations">{{nation.name}}</option>
    
   </select>   
     </div>
@@ -153,9 +153,9 @@
   <div class="layui-form-item">
     <label class="layui-form-label">省份：</label>
     <div class="layui-input-block">
-     <select v-model="userInfo.U_ProvinceID"  lay-search>
+     <select v-model="userInfo.provinceId"  disabled>
     <option value="请选择" disabled>请选择</option>
-    <option :value="province.id"  v-for="province in provinces">{{province.provinceName}}</option>
+    <option :value="province.id"  v-for="province in provinces">{{province.name}}</option>
    
   </select>   
     </div>
@@ -164,16 +164,16 @@
     <div class="layui-form-item">
     <label class="layui-form-label">城市：</label>
     <div class="layui-input-block">
-     <select v-model="userInfo.U_CityID"  lay-search>
+     <select v-model="userInfo.cityId"  disabled>
     <option value="请选择" disabled>请选择</option>
-    <option :value="city.id"  v-for="city in citys">{{city.cityName}}</option>
+    <option :value="city.id"  v-for="city in citys">{{city.name}}</option>
    
   </select>   
     </div>
   </div>
   <div class="layui-form-item">
     <div class="layui-input-block">
-      <button class="layui-btn" lay-submit lay-filter="*">立即修改</button>
+      <button class="layui-btn" lay-filter="*"  type="button" @click="upInfor">立即修改</button>
      
     </div>
   </div>
@@ -188,20 +188,12 @@
     	  <label class="layui-form-label">修改头像：</label>
     <div class="layui-input-block">
     	 
-    <img :src="userInfo.U_HeadPortrait" class="layui-nav-img">   <button class="layui-btn" id="updateHead">上传头像</button>
+    <img :src="userInfo.headPortrait" class="layui-nav-img">   <button class="layui-btn" id="updateHead">上传头像</button>
   
      </div>
      </div>
     
-    <div class="layui-form-item">
-    	 
-    	  <div class="layui-input-block">
-    	  	<br>
-    	<div class="layui-progress layui-progress-big" lay-filter="uploadProgress" lay-showPercent="true">
-        <div class="layui-progress-bar" lay-percent="0%"></div>
-    	 </div>
-         </div>
-    </div>
+
      	
      	</div>
     	
@@ -212,18 +204,18 @@
   <div class="layui-form-item">
     <label class="layui-form-label">旧密码：</label>
     <div class="layui-input-block">
-      <input type="password"  v-model="userInfo.U_PassWord" class="layui-input">
+      <input type="password"  v-model="pass.oldPass" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label">新密码：</label>
     <div class="layui-input-block">
-      <input type="password"  v-model="userInfo.U_newPassWord" class="layui-input">
+      <input type="password"  v-model="pass.newPass" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item">
     <div class="layui-input-block">
-      <button class="layui-btn" lay-submit lay-filter="*">立即修改密码</button>
+      <button class="layui-btn" lay-submit type="button" @click="upPass">立即修改密码</button>
      
     </div>
   </div>
@@ -258,79 +250,141 @@
 			el:"#pc",
 			data:{
 				userInfo:{
-					U_LoginID:'',
-					U_PassWord:'',
-					U_NickName:'',
-					U_SignaTure:'',
-					U_Sex:'女',
-					U_HeadPortrait:'//t.cn/RCzsdCq',
-					U_Birthday:'',
-					U_Telephone:'',
-					U_Name:'',
-					U_Email:'',
-					U_Intro:'',
-					U_ShengXiao:'',
-					U_Age:'',
-					U_Constellation:'',
-					U_Vocation:'',
-					U_NationID:1,
-					U_ProvinceID:1,
-					U_CityID:1
+                    loginId:'',
+                    password:'',
+                    nickName:'',
+                    signaTure:'',
+                    sex:'女',
+                    headPortrait:'',
+                    birthday:'',
+                    telephone:'',
+                    name:'',
+                    email:'',
+                    intro:'',
+                    shengXiao:'',
+                    age:'',
+                    constellation:'',
+                    vocation:'',
+                    nationId:'',
+                    provinceId:'',
+                    cityId:''
 				},
-				nations:[
-				{id:1,nationName:'中国'},
-				{id:2,nationName:'美国'},
-				{id:3,nationName:'法国'},
-				{id:4,nationName:'德国'},
-				],
-				provinces:[
-				{id:1,provinceName:'江西省'},
-				{id:2,provinceName:'湖北省'},
-				{id:3,provinceName:'湖南省'},
-				{id:4,provinceName:'广东省'},
-				],
-				citys:[
-				{id:1,cityName:'南昌市'},
-				{id:2,cityName:'武汉市'},
-				{id:3,cityName:'宜春市'},
-				{id:4,cityName:'贵阳市'},
-				]
+				nations:[],
+				provinces:[],
+				citys:[],
+                pass:{
+				    oldPass:'',
+                    newPass:'',
+                }
 				
 				
 			},
 			mounted:function(){
-				layui.use(['element','form','upload','layer'],function(){
-					element=layui.element;
-					form=layui.form;
-					upload=layui.upload;
-					layer=layui.layer;
-					upload.render({
-						  elem: '#updateHead'
-                        ,url: '/api/upload/'
-                        ,progress: function(n, elem){
-                            var percent = n + '%' //获取进度百分比
-                              element.progress('uploadProgress', percent); //可配合 layui 进度条元素使用
-    
-                                    //以下系 layui 2.5.6 新增
-                            console.log(elem); //得到当前触发的元素 DOM 对象。可通过该元素定义的属性值匹配到对应的进度条。
-                            }
-                         ,done: function(res, index, upload){
-                          layer.closeAll('loading'); //关闭loading
+              $.ajax({
+                  type:'post',
+                  url:'/init/initPC',
+                  success:function (res) {
+                      $("#headInfo").html('<img src="'+res.user.headPortrait+'" class="layui-nav-img" title="'+res.user.signaTure+'">'+res.user.nickName);
+                      pc.nations=res.nations;
+                      pc.provinces=res.provinces;
+                      pc.citys=res.citys;
+                      pc.userInfo=res.user;
+
+                      layui.use(['element','form','upload','layer'],function(){
+                          element=layui.element;
+                          form=layui.form;
+                          upload=layui.upload;
+                          layer=layui.layer;
+                          upload.render({
+                              elem: '#updateHead',
+                              url: '/upload/uploadHeadImg',
+                              accept:'images',
+                              exts:'jpg|png|gif|bmp|jpeg'
+
+                              ,done: function(res, index, upload){
+                                    if(res.sign){
+                                        layer.msg(res.msg,function () {
+                                            window.location.reload()
+                                        })
+                                    }
+                                  layer.closeAll('loading'); //关闭loading
                               }
-                        ,error: function(index, upload){
-                             layer.closeAll('loading'); //关闭loading
-                                 }
-						
-						
-					})
-					
-					
-					
-				})
+                              ,error: function(index, upload){
+                                  layer.closeAll('loading'); //关闭loading
+                              }
+
+
+                          })
+
+
+
+                      })
+
+                  }
+
+              })
+
+
+
 				
 				
 				
-			}
+			},
+            methods:{
+                upInfor:function () {
+                    console.info(pc.userInfo)
+                    pc.userInfo.createTime=''
+                    $.ajax({
+                        type:'post',
+                        data:pc.userInfo,
+                        url:'/user/upInfor',
+                        success:function (res) {
+                            if(res.sign){
+                                layer.msg(res.msg,function () {
+                                    window.location.reload()
+                                })
+                            }else {
+                                layer.msg(res.msg)
+                            }
+                        }
+
+
+                    })
+                },
+                upPass:function () {
+                    if(pc.pass.oldPass==''){
+                        layer.msg('请输入旧密码！')
+                        return
+                    }
+                    if(pc.pass.newPass==''){
+                        layer.msg('请输入新密码！')
+                        return
+                    }
+
+                    $.ajax({
+                        type:"post",
+                        data:pc.pass,
+                        url:'/user/upPass',
+                        success:function (res) {
+                            if(res.sign){
+                                layer.msg(res.msg,function () {
+                                    window.location.href='/service/login.html';
+                                })
+                            }else {
+                                layer.msg(res.msg)
+                            }
+                        }
+
+
+
+
+
+                    })
+                }
+
+
+
+            }
 		})
 
 
@@ -340,6 +394,20 @@
                 window.location.href='/service/personCenter.html'
             })
 
+        }
+
+        function loginOut() {
+           $.ajax({
+               type:'post',
+               url:'/user/loginOut',
+               success:function (res) {
+                   layer.msg(res.msg,function () {
+                       window.location.href='/service/login'
+                   })
+               }
+
+
+           })
         }
 	</script>
 </html>

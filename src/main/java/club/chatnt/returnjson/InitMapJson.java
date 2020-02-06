@@ -1,10 +1,6 @@
 package club.chatnt.returnjson;
 
-import club.chatnt.entity.City;
-
-import club.chatnt.entity.Groupd;
-import club.chatnt.entity.Link;
-import club.chatnt.entity.User;
+import club.chatnt.entity.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,5 +32,14 @@ public class InitMapJson {
         map.put("user",user);
         return  map;
 
+    }
+    public  static  Map returnInitPC(User user, List<Nation> nations,List<Province>provinces,List<City>citys){
+        map=new HashMap();
+        map.put("user",user);
+        map.put("nations",nations);
+        map.put("provinces",provinces);
+        map.put("citys",citys);
+
+        return map;
     }
 }

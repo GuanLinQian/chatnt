@@ -1,16 +1,10 @@
 package club.chatnt.controller;
 
 
-import club.chatnt.entity.Groupd;
-import club.chatnt.entity.Link;
-import club.chatnt.entity.Signin;
-import club.chatnt.entity.User;
+import club.chatnt.entity.*;
 import club.chatnt.returnjson.InitMapJson;
 
-import club.chatnt.service.ArticleService;
-import club.chatnt.service.GroupdService;
-import club.chatnt.service.LinkService;
-import club.chatnt.service.SigninService;
+import club.chatnt.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +32,12 @@ public class InitController {
     GroupdService groupdService;
 @Autowired
     ArticleService articleService;
+@Autowired
+    NationService nationService;
+@Autowired
+  ProvinceService provinceService;
+@Autowired
+  CityService cityService;
     @RequestMapping("initIndex")
     public Map initIndex(){
         User user=(User)request.getSession().getAttribute("user");
@@ -58,5 +58,13 @@ return  InitMapJson.returnInitChatSel(user,groupds);
     public  Map initTc(){
         User user=(User)request.getSession().getAttribute("user");
         return  InitMapJson.returnInitTc(user);
+    }
+    @RequestMapping("initPC")
+    public  Map initPC(){
+        User user=(User)request.getSession().getAttribute("user");
+        List<Nation>nations=nationService.list();
+        List<Province>provinces=provinceService.list();
+        List<City>citys=cityService.list();
+return  InitMapJson.returnInitPC(user,nations,provinces,citys);
     }
 }

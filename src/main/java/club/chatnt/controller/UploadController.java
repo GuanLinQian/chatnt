@@ -1,5 +1,7 @@
 package club.chatnt.controller;
 
+import club.chatnt.entity.User;
+import club.chatnt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,8 @@ import java.util.UUID;
 public class UploadController {
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    UserService userService;
 @RequestMapping("uploadContentImg")
     public Map uploadContentImg(MultipartFile file){
         //父data
@@ -67,5 +71,47 @@ public class UploadController {
             map.put("msg", "图片插入成功！");
         }
         return  map;
+    }
+    @RequestMapping("uploadHeadImg")
+    public Map uploadHeadImg(MultipartFile file){
+        //data
+        Map<String,Object> map=new HashMap<>();
+        User user=(User)request.getSession().getAttribute("user");
+        //获取文件后缀
+        System.out.println(file.getOriginalFilename());
+        String []hz=file.getOriginalFilename().split("\\.");
+
+        System.out.println(hz[0]);
+        String filehz=hz[1];
+        System.out.println(filehz);
+            String path = "D:\\Program Files\\chatnt\\head\\";
+            String fileName = UUID.randomUUID() + "." + filehz;
+            System.out.println(fileName);
+            File file1 = new File(path + fileName);
+
+            if (file.isEmpty()) {
+                map.put("msg", "文件为空！！");
+
+            }
+            try {
+
+                file.transferTo(file1);
+
+                user.setHeadPortrait("/upload/head/"+fileName);
+
+
+
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        userService.updateById(user);
+        map.put("msg","头像修改成功！");
+        map.put("sign",true);
+
+
+
+        return  map;
+
+
     }
 }

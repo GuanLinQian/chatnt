@@ -6,7 +6,7 @@
       url: jdbc:mysql://47.94.107.225:3306/chatnt?serverTimezone=Asia/Shanghai
       driver-class-name: com.mysql.cj.jdbc.Driver
       hikari:
-        max-lifetime: 1800000
+        max-lifetime: 30000
         connection-test-query: SELECT 1
 
     mail:

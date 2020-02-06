@@ -93,4 +93,16 @@ return map;
 return  map;
     }
 
+    public static Map returnUpInfor(boolean f){
+        if(f){
+
+            map.put("msg","修改信息成功！");
+            map.put("sign",true);
+
+        }else {
+            map.put("msg","修改信息失败！");
+            map.put("sign",false);
+        }
+        return  map;
+    }
 }
