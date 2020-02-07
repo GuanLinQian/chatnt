@@ -15,9 +15,10 @@ public class UserInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         User user=(User)request.getSession().getAttribute("user");
         if(user==null){
-            response.setContentType("text/html;charset=UTF-8");
-      response.sendRedirect("/service/login");
-            return  true;
+           // response.setContentType("text/html;charset=UTF-8");
+     // response.sendRedirect("");
+            request.getRequestDispatcher("/service/login").forward(request,response);
+            return  false;
         }
         return  true;
     }

@@ -16,6 +16,19 @@
       password: q19990418
       test-connection: true
       username: chatnt@163.com
+      properties:
+        mail:
+          smtp:
+            starttls:
+              enable: true
+              required: true
+            auth: true
+            socketFactory:
+              class: javax.net.ssl.SSLSocketFactory
+              port: 465
+
+
+
 
   mybatis-plus:
     mapper-locations: classpath*:mapper/*Mapper.xml
@@ -24,4 +37,4 @@
 
     type-aliases-package: club.chatnt.entity
   server:
-    port: 8081
+    port: 8080

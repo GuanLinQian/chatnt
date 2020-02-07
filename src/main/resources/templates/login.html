@@ -26,7 +26,7 @@
             <input v-model="user.password"   placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
             
-             <input   type="checkbox" class="layui-input" name="ch"><span style="color: blue;">我同意以上规则和协议</span>
+             <input   type="checkbox" class="layui-input" name="ch"><span style="color: blue;" @click="openTg">我同意以上规则和协议</span>
                <hr class="hr15">
             <input value="登录"  style="width:100%;" type="button" @click="login">
           
@@ -70,7 +70,7 @@
     		openRegister:function(){
     			layer.open({
     				type:2,
-    				content:'register.html',
+    				content:'/service/register',
     				title:'注册',
     				area:['600px','600px']
     				
@@ -81,7 +81,7 @@
     		openForgetPass:function(){
     			layer.open({
     				type:2,
-    				content:'forgetPassword.html',
+    				content:'/service/forgetPassword',
     				title:'找回密码',
     				area:['600px','150px']
     				
@@ -122,6 +122,15 @@
 
 
 
+
+                })
+            },
+            openTg:function () {
+                layer.open({
+                    type:2,
+                    content:'/service/tg',
+                    title:'相关条规',
+                    area:['700px','150px']
 
                 })
             }

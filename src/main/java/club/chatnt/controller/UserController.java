@@ -103,7 +103,7 @@ return map;
 }
 @RequestMapping("loginOut")
     public  Map loginOut(){
-    request.getSession().getAttribute("user");
+    request.getSession().removeAttribute("user");
     Map<String,Object> map=new HashMap<>();
     map.put("msg","退出成功！");
    return map;

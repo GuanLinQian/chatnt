@@ -24,13 +24,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new UserInterceptor()).excludePathPatterns("/user/login").excludePathPatterns("/service/login").excludePathPatterns("/css/**").excludePathPatterns("/images/**").excludePathPatterns("/js/**").excludePathPatterns("/lib/**");
+        registry.addInterceptor(new UserInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/service/login","/service/tg","/service/forgetPassword","/service/register")
+                .excludePathPatterns("/nation/initNations","/province/initProvinces","/city/initCitys")
+                .excludePathPatterns("/user/register","/user/retrievePassword","/user/login")
+                .excludePathPatterns("/css/**")
+                .excludePathPatterns("/images/**")
+                .excludePathPatterns("/js/**")
+                .excludePathPatterns("/lib/**");
+
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:D:\\Program Files\\chatnt\\");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:C:\\Program Files\\chatnt\\");
 
 
     }

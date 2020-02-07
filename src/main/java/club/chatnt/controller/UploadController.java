@@ -49,7 +49,7 @@ public class UploadController {
             map.put("code",1);
             map.put("msg","请选择bmp/jpg/png格式的图片！");
         }else {
-            String path = "D:\\Program Files\\chatnt\\content\\";
+            String path = "C:\\Program Files\\chatnt\\content\\";
             String fileName = UUID.randomUUID() + "." + filehz;
             System.out.println(fileName);
             File file1 = new File(path + fileName);
@@ -84,7 +84,7 @@ public class UploadController {
         System.out.println(hz[0]);
         String filehz=hz[1];
         System.out.println(filehz);
-            String path = "D:\\Program Files\\chatnt\\head\\";
+            String path = "C:\\Program Files\\chatnt\\head\\";
             String fileName = UUID.randomUUID() + "." + filehz;
             System.out.println(fileName);
             File file1 = new File(path + fileName);
